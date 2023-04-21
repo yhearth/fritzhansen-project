@@ -12,7 +12,7 @@ const ivIntroImg = document.querySelector('.living_area .sc_intro .img_wrap img'
 const ivIntroTit = document.querySelector('.living_area .sc_intro .title');
 
 window.onresize = function(){
-    document.location.reload();
+    // document.location.reload();
     window.scrollTo(0, 0);
 };
 

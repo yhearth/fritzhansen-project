@@ -31,7 +31,7 @@ let numNow = 0;
 
 //main
 window.onresize = function(){
-    document.location.reload();
+    // document.location.reload();
     window.scrollTo(0, 0);
   };
 function reset(){

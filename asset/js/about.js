@@ -12,7 +12,7 @@ const aboutIntroImg = document.querySelector('.about_area .sc_intro .intro_group
 const aboutIntroTxt = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap');
 const aboutIntroTit = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap .title span');
 window.onresize = function(){
-    document.location.reload();
+    // document.location.reload();
     window.scrollTo(0, 0);
   };
 

@@ -10,7 +10,7 @@ const designIntroImg = document.querySelector('.designers_area .sc_intro .img_wr
 const designIntroTxt = document.querySelector('.designers_area .sc_intro .title');
 
 window.onresize = function(){
-    document.location.reload();
+    // document.location.reload();
     window.scrollTo(0, 0);
   };
   

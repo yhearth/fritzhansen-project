@@ -7,7 +7,7 @@ window.onload = function(){
 }
   
 window.onresize = function(){
-    document.location.reload();
+    // document.location.reload();
     window.scrollTo(0, 0);
 };
 

@@ -33,7 +33,7 @@ let designPg = 'designer.html';
 let aboutPg = 'about.html';
 
 window.onresize = function(){
-    document.location.reload();
+    // document.location.reload();
   };
 function headReset(){
     main.classList.remove('on');
