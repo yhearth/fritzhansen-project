@@ -1,0 +1,243 @@
+
+footer{
+    &.disable{display: none;}
+}
+.footer_area{
+    position: relative;
+    width: 100vw;
+
+    .footer_top{
+        width: 100%;
+        padding: 3.125vw;box-sizing: border-box;
+        background-color: #000;
+        color:#fff;
+
+        display: flex;
+        justify-content: center;
+        @include tablet{
+            flex-direction: column-reverse;
+        }
+        @include mobile{padding: 6.25vw;}
+        .ft_left{
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30%;
+            @include tablet{
+                display: block;
+                width: 100%;
+            }
+            .news_letter{
+                @include tablet{overflow: hidden;}
+
+                .tit{
+                    font-size: 1.2vw;
+                    font-weight: 400;
+                    line-height: 1.2;
+                    margin-bottom: 1vw;
+                    @include tablet{
+                        font-size: 22px;
+                        margin-bottom: 2vw;
+                    }
+                    @include mobile{
+                        margin-bottom: 4vw;
+                    }
+                }
+                .sub{
+                    font-size: .9vw;
+                    font-weight: 300;
+                    line-height: 1.8;
+                    margin-bottom: 3.125vw;
+                    color:#999;
+                    @include tablet{
+                        font-size: 14px;
+                        float: left;
+                        margin-bottom: 0;
+                    }
+                    @include mobile{float: none;}
+                }
+                a{
+                    position: relative;
+
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    margin-bottom: 1vw;
+                    @include tablet{
+                        float: right;
+                        margin-bottom: 0;
+                    }
+                    @include mobile{float: none}
+                    &:after{
+                        content: '';
+                        position: absolute;
+                        bottom: 0;left: 0;
+                        width: 0%;
+                        border-bottom: .5px solid #fff;
+                        transition: all .5s ease;
+                        @include tablet{display: none;}
+                    }
+                    .tit{
+                        font-size: 1.2vw;
+                        font-weight: 400;
+                        line-height: 1.2; 
+                        margin-right: 1vw;
+                        @include tablet{font-size: 16px;margin-right: 0;margin-left: 2vw;}
+                        @include mobile{margin: 0;margin-top: 4vw;}
+                    }
+                    svg{
+                        width: 15px;height: 15px;opacity: 0;
+                        transition: all .5s ease;
+                         path{fill:#fff}
+                         @include tablet{display: none;}
+                    }
+                    &:hover{
+                        &:after{width: 100%;}
+                        svg{opacity: 1;}
+                    }
+                }
+
+            }
+            .find_store{
+                border:.5px solid #ccc;
+                border-radius: 3px;
+                padding: 1.5vw; box-sizing: border-box;
+                margin-top: 5vw;
+
+                transition: all .5s ease;
+                @include tablet{padding:2vw 3vw;}
+                @include mobile{padding:4vw;}
+                a{
+                    display: flex;
+                    align-items: center;
+                    svg{
+                        width: 13px;height: 20px;
+                        margin-right: 1vw;
+                        margin-top: 2px;
+                        @include tablet{margin-right: 2vw;}
+                        path{fill:#fff;}
+
+                    }
+                    .tit{
+                        @include sub_font;
+                        @include tablet{font-size: 16px;}
+                    }
+                }
+                &:hover{
+                    background-color: #252525;
+                    border:.5px solid #252525;;
+                }
+
+            }
+
+        }
+        .ft_right{
+            width: 70%;
+            padding-left: 3.125vw;box-sizing: border-box;
+            @include tablet{
+                width: 100%;
+                padding: 0;
+                margin-bottom: 4vw;
+            }
+            .nav_group{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                text-align: center;
+                @include tablet{justify-content: space-between;}
+                @include mobile{
+                   flex-direction: column;
+                }
+                .nav_wrap{
+                    position: relative;
+                    width: 20%;
+                    @include mobile{width: 45%;}
+                    .tit{
+                        position: relative;
+                        width: 100%;
+                        display: block;
+
+                        padding: 2vw 0;box-sizing: border-box;
+                        margin-bottom: 2vw;
+                        cursor: pointer;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        @include mobile{justify-content: start;padding: 4vw 0;}
+                        span{
+                            font-size: 1.2vw;
+                            font-weight: 400;
+                            line-height: 1.2;
+                            margin-right: 1vw;
+                            @include tablet{font-size: 16px;margin-right: 2vw;}
+                            @include mobile{margin-right: 3vw;}
+                        }
+                        svg{
+                            width: 10px;height: 14px;
+                            fill:none;
+                            transform: rotate(90deg);
+                            path{stroke: #fff;stroke-width: 1px;}
+                        }
+
+                        &.on{
+                            color:var(--pointColor);
+                            path{stroke:var(--pointColor) ;}
+                        }
+                        
+                    }
+                    ul{
+                        position: absolute;
+                        width: 100%;height:auto;
+                        overflow: hidden;
+                        background-color: #000;
+                        border-radius: 3px;
+                        @include tablet{
+                            background-color: #222;
+                            padding: 2vw 0;
+                          
+                        }
+                        @include mobile{padding: 4vw 0;}
+                        li{
+                            font-size: 1vw;
+                            font-weight: 200;
+                            line-height: 1.5;
+                            color:#ccc;
+                            cursor: pointer;
+                            @include tablet{font-size: 14px;}
+                        }
+                        li:not(:last-child){
+                            margin-bottom: 1vw;
+                            @include tablet{margin-bottom: 2vw;}
+                            @include mobile{margin-bottom: 4vw;}
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+    }
+    .footer_bottom{
+
+        display: flex; 
+        align-items: center;   
+        padding: 3.125vw;box-sizing: border-box;
+        .ft_logo{
+            display: block;
+            margin-right: 2vw;
+            svg{width: 150px;height: 30px;}
+        }
+        a{
+            display: block;
+            font-size: 1vw;
+            font-weight: 400;
+            line-height: 1.5;
+            color:#252525;
+            margin-right: 1vw;
+        }
+    }
+}
