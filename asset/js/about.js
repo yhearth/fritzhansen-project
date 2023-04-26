@@ -6,7 +6,6 @@ window.onload = function(){
     aboutIntroBg()
     sloganslide(); 
     footer()
-
 };
 const aboutIntroImg = document.querySelector('.about_area .sc_intro .intro_group .img_wrap');
 const aboutIntroTxt = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap');
@@ -20,7 +19,7 @@ function reset(){
     aboutIntroImg.style.opacity = 0;
     aboutIntroImg.style.width = '0';
     aboutIntroTxt.style.opacity = 0;
-    aboutIntroTit.style.transform = 'translateY(100%)';
+   // aboutIntroTit.style.transform = 'translateY(100%)';
 
     for(let r=0;r<aboutHisSpot.length; r++){
         aboutHisSpot[r].style.opacity = 0;
@@ -44,10 +43,10 @@ function aboutIntroBg(){
     setTimeout(()=>{
         aboutIntroTxt.style.opacity = 1;
         aboutIntroTxt.style.transition = '1s ease'
-        setTimeout(()=>{
-            aboutIntroTit.style.transform = 'translateY(0%)';
-            aboutIntroTit.style.transition = '.5s ease'
-        },500)
+        // setTimeout(()=>{
+        //     aboutIntroTit.style.transform = 'translateY(0%)';
+        //     aboutIntroTit.style.transition = '.5s ease'
+        // },500)
     },500)
 
 }

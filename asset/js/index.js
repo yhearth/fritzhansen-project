@@ -6,7 +6,6 @@ window.onload = function(){
     mainVisualSlide();
     sloganslide(); 
     footer()
-
 };
 
 //main
