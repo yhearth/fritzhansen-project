@@ -1,12 +1,18 @@
 'use strict';//
 window.onload = function(){ 
     reset()
-    headReset()
-    headerBgc();
+    // headReset();
+    // headerBgc();
     mainVisualSlide();
-    sloganslide(); 
-    footer()
+    // sloganslide(); 
+    // footer()
 };
+window.onresize = function(){
+    if(matchMedia("screen and (min-width: 768px)").matches){
+        document.location.reload();
+        window.scrollTo(0, 0);
+    };
+}
 
 //main
 const visualSc = document.querySelector('.main_area .sc_visual')
@@ -28,30 +34,25 @@ let visualNow = 0;
 let numArr = ['1','2','3','4','5'];
 let numNow = 0;
 
-//main
-window.onresize = function(){
-    // document.location.reload();
-    window.scrollTo(0, 0);
-  };
+
+
+// reset
 function reset(){
     visualSc.style.opacity = 0;
     visControl.style.opacity =0;
     if(matchMedia("screen and (max-width: 767px)").matches){
-        
         for(const triger of trigerMain ){
             triger.style.opacity = 1;
             triger.style.transform = 'translateY(0)'
         }
       }
 }
-
 //main visual
 function  mainVisualSlide(){
-
     //reset
     for(let i = 0; i < visualImg.length; i++){
-        visualArray.push(visualImg[i]); //이미지들 배열 넣기
-        visualImg[i].style.opacity = 0; //img 초기화
+        visualArray.push(visualImg[i]);
+        visualImg[i].style.opacity = 0;
     }
     visualImg[visualNow].style.opacity = 1;
     numBtn.textContent ='';
@@ -77,14 +78,12 @@ function  mainVisualSlide(){
 
          let timer = undefined; 
          if (timer == undefined) {
-             timer = setInterval(visualSlide,4000);
-             //오류남 () 안써야함
-           
+             timer = setInterval(visualSlide,4000);       
          }
      
          function visualSlide(){
      
-             let visualNext = (visualNow + 1) % visualImgAll ; // ( 2 + 1 ) % 4 = 나머지값 1
+             let visualNext = (visualNow + 1) % visualImgAll ;
              let numNext = (numNow + 1) % visualImgAll ;
              //remove
              visualArray[visualNow].style.opacity = 0;
@@ -102,7 +101,6 @@ function  mainVisualSlide(){
      
          }
          nextBtn.addEventListener('click',()=>{
-            // console.log('다음')
             timeroff()
             setTimeout(() => {
                 let visualNext = (visualNow + 1) % visualImgAll ;
@@ -126,7 +124,6 @@ function  mainVisualSlide(){
             timeron()
          })
          prevBtn.addEventListener('click',()=>{
-            // console.log('이전')
             timeroff()
             setTimeout(() => {
                 let visualPrev = (visualNow + (visualImgAll - 1) ) % visualImgAll ;
@@ -163,9 +160,7 @@ function  mainVisualSlide(){
                }
          }
          statelBtn.addEventListener('click',()=>{
-     
              let btnArr = [];
-     
              btnArr = statelBtn.children;
               console.log(btnArr[0]);
      
@@ -173,14 +168,11 @@ function  mainVisualSlide(){
                  btnArr[0].classList.remove('on');
                  btnArr[1].classList.add('on');
                  timeroff();      
-                 console.log('멈춰');
              }else if(btnArr[1].classList.contains('on')){
                  btnArr[1].classList.remove('on');
                  btnArr[0].classList.add('on');
                  timeron();
              }
-     
-     
          })
     },500)
 }
@@ -193,31 +185,27 @@ function  mainVisualSlide(){
 const trigerMain = document.querySelectorAll('.main_area .sc_intro>div');
 const mainIntroBtn = document.querySelectorAll('.main_area .sc_intro .state_btn>button');
 const mainIntroMv = document.querySelector('.main_area .sc_intro .mv');
-// console.log(trigerMain);
-window.addEventListener('scroll',()=> { 
-    
-    for(let i = 0; i <trigerMain.length; i++){//3
+window.addEventListener('scroll',()=> {   
+    for(let i = 0; i <trigerMain.length; i++){
        
         let scrollNow = document.documentElement.scrollTop;
-        let winHeight = window.innerHeight;//현재 화면 높이값
-        let trigerBottom = trigerMain[i].offsetTop;//요소의 bottom
-        let trigerTop = trigerBottom - winHeight; //요소의 top
+        let winHeight = window.innerHeight;
+        let trigerBottom = trigerMain[i].offsetTop;
+        let trigerTop = trigerBottom - winHeight;
         let bgProPer = 0;
-        // const bgProView = 60; 
-
         bgProPer = (scrollNow - trigerTop) / winHeight * 10;
             if( 15 <= bgProPer){
 
                 mainIntroMv.muted = false;
-                for(let v =0; v <trigerMain.length; v++){//3
+                for(let v =0; v <trigerMain.length; v++){
                     setTimeout(()=>{
                         trigerMain[v].classList.add('scrollAni');
                     },v*500);   
                 }
-
             }
     }
 })
+//동영상 제어
 for(let i = 0;i < mainIntroBtn.length; i++)
 {
     mainIntroBtn[i].addEventListener('click',()=>{
@@ -235,13 +223,15 @@ for(let i = 0;i < mainIntroBtn.length; i++)
     })
 
 }
-//main cate
-const mainCateBtn = document.querySelectorAll('.main_area .sc_cate .control>button');//트리거 연결
-const mainCatePrev = document.querySelector('.main_area .sc_cate .btn_prev');//트리거 연결
-const mainCateNext = document.querySelector('.main_area .sc_cate .btn_next');//트리거 연결
 
-const mainCateSLide = document.querySelector('.main_area .sc_cate .slide_wrap');//트리거 연결
-const mainCateLi= document.querySelectorAll('.main_area .sc_cate .slide_wrap li');//트리거 연결
+
+//main cate
+const mainCateBtn = document.querySelectorAll('.main_area .sc_cate .control>button');
+const mainCatePrev = document.querySelector('.main_area .sc_cate .btn_prev');
+const mainCateNext = document.querySelector('.main_area .sc_cate .btn_next');
+
+const mainCateSLide = document.querySelector('.main_area .sc_cate .slide_wrap');
+const mainCateLi= document.querySelectorAll('.main_area .sc_cate .slide_wrap li');
 let currIndex = 0;
 let slideIndex = mainCateLi.length;
 let slideWidth = 16.5
@@ -257,7 +247,7 @@ if(matchMedia("screen and (max-width: 767px)").matches){
 wrapWidthSize()
 
 function wrapWidthSize(){
-    let wrapWidth = (slideWidth + slideMargin ) * slideIndex  + - slideMargin  + 'vw'; //총 길이 구하기
+    let wrapWidth = (slideWidth + slideMargin ) * slideIndex  + - slideMargin  + 'vw';
     mainCateSLide.style.width = wrapWidth;
     console.log( wrapWidth)
 
@@ -297,13 +287,9 @@ mainCatePrev.addEventListener('click',()=>{
 
 function moveSlide(num){
     mainCateSLide.style.left = - num * (slideWidth + slideMargin ) + 'vw';
-    currIndex = num;//바뀐 순번을 적용하기
+    currIndex = num;
     console.log(currIndex , slideIndex); 
 }
-
-
-
-
 
 
 

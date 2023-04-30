@@ -30,6 +30,7 @@ body {
 }
 
 .link_more {
+  width: 100%;
   display: flex;
   justify-content: end;
   color: #666;
@@ -771,6 +772,7 @@ footer.disable {
   }
 }
 .footer_area .footer_top .ft_right .nav_group .nav_wrap .tit {
+  color: #fff;
   position: relative;
   width: 100%;
   display: block;

@@ -6,7 +6,6 @@
     --pointColor : #d6e1b9;
 }
 body{
-
     font-family: 'Inter', sans-serif;
    // font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
@@ -15,17 +14,6 @@ body{
     line-height: 1;
     max-width:1440px;
 }
-
-// .loading{
-//     position: fixed;
-//     top: 0l 0;width: 100%;height: 100%;
-//     background-color: #000;
-//     opacity: 100%;
-//     z-index: 10;
-
-//     transition: all 1s .5s ease;
-//     &.hide{opacity: 20%;}
-// }
 
 .blind{
     position: absolute;   
@@ -41,8 +29,8 @@ body{
 }
 
 .link_more{
-    display: flex;
-    justify-content: end;
+    width: 100%;
+    display: flex;justify-content: end;
     color:#666;
     div{
         display: flex;

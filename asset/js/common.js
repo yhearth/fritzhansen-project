@@ -32,9 +32,7 @@ let livingPg = 'living.html';
 let designPg = 'designer.html';
 let aboutPg = 'about.html';
 
-window.onresize = function(){
-    // document.location.reload();
-  };
+headReset()
 function headReset(){
     main.classList.remove('on');
 
@@ -62,6 +60,7 @@ linkMain.addEventListener('click',function(e){
     window.location.href = indexPg;
 })
 //scroll - header/logo ani
+headerBgc();
 function headerBgc(){
 
     window.addEventListener('scroll',()=> { 
@@ -332,7 +331,7 @@ const slogan = document.querySelectorAll('.sloganImg  img');
 let sloganAll = slogan.length;
 let nowIndex = 0;
 let myArray = [];
-
+sloganslide();
 function sloganslide(){
     
     for(let i = 0; i < sloganAll; i++){
@@ -410,7 +409,7 @@ const footerNav = document.querySelectorAll('.footer_area .nav_wrap');
 const footerNavTit = document.querySelectorAll('.footer_area .nav_wrap .tit');
 
 let idAni = false;
-
+footer()
 function footer(){
     for(let f = 0 ;f < footerNavTit.length; f++){
 

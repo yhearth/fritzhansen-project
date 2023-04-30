@@ -155,10 +155,10 @@ footer{
                     width: 20%;
                     @include mobile{width: 45%;}
                     .tit{
+                        color:#fff;
                         position: relative;
                         width: 100%;
                         display: block;
-
                         padding: 2vw 0;box-sizing: border-box;
                         margin-bottom: 2vw;
                         cursor: pointer;
