@@ -13,7 +13,6 @@ window.onresize = function(){
         window.scrollTo(0, 0);
     };
 }
-
 //main
 const visualSc = document.querySelector('.main_area .sc_visual')
 const visualTxt= document.querySelector('.main_area .visual_title')
@@ -33,8 +32,6 @@ let visualNow = 0;
 
 let numArr = ['1','2','3','4','5'];
 let numNow = 0;
-
-
 
 // reset
 function reset(){
@@ -177,10 +174,6 @@ function  mainVisualSlide(){
     },500)
 }
 
-
-
-
-
 //main intro
 const trigerMain = document.querySelectorAll('.main_area .sc_intro>div');
 const mainIntroBtn = document.querySelectorAll('.main_area .sc_intro .state_btn>button');
@@ -223,7 +216,6 @@ for(let i = 0;i < mainIntroBtn.length; i++)
     })
 
 }
-
 
 //main cate
 const mainCateBtn = document.querySelectorAll('.main_area .sc_cate .control>button');
