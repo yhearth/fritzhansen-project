@@ -1,16 +1,16 @@
 window.onload = function(){
     reset();
-    headReset()
-    headerBgc();
+    // headReset()
+    // headerBgc();
     productIntroBg();
-    footer()
+    // footer()
 }
-  
 window.onresize = function(){
-    // document.location.reload();
-    window.scrollTo(0, 0);
-};
-
+    if(matchMedia("screen and (min-width: 768px)").matches){
+        document.location.reload();
+        window.scrollTo(0, 0);
+    };
+}
 function reset(){
     pdIntroImg.style.transform = `scale(1.3)`;
     pdIntroTxt.style.opacity = 0;
@@ -84,7 +84,7 @@ for(let f = 0; f < pdFillTool.length; f++){
 
         let toolSvg = pdFillTool[f].children;
 
-        if( pdFillTool[f].classList.contains('off')){//열었을떄
+        if( pdFillTool[f].classList.contains('off')){
             pdFillTool[f].classList.remove('off');
             pdFillTool[f].classList.add('on');
             toolSvg[1].style.transform = 'rotate(270deg)';
@@ -136,41 +136,40 @@ for(let f = 0; f < pdFillTool.length; f++){
 //list grid
 pdRangeInput.addEventListener('change',function(){
     document.documentElement.style.setProperty('--minRangeValue',`${this.value}vw`)
-     //루트값은 우리가 만든 이름이기때문에 setProperty 사용해줘야함 (backgroundColor같은게 없음)
      console.log(this.value);
 })
 //fillter check
 for(let c = 0; c < pdCheckLi.length; c++){
 
 
-    pdFillIdx.innerText = pdItemIdx;//상품 갯수 초기화
+    pdFillIdx.innerText = pdItemIdx;
 
-    pdCheckLi[c].addEventListener('click',function(){//체크박스 클릭할때
+    pdCheckLi[c].addEventListener('click',function(){
   
         if(!pdCheckLi[c].classList.contains('checked')){
-            pdCheckLi[c].classList.add('checked');//체크 안된 상태라면 클래스 추가
+            pdCheckLi[c].classList.add('checked');
 
             let chxLabel = pdCheckLi[c].nextElementSibling;
-            let chxName =  chxLabel.getAttribute('for');//for 값
+            let chxName =  chxLabel.getAttribute('for');
 
             //체크박스
-            checkArr.push(chxName);//선택된 라벨 배열
+            checkArr.push(chxName);
 
             //리스트
             for(let i = 0; i < pdItemFig.length; i++){
-                let itemLi = pdItemFig[i].parentElement.parentElement;//모든 li
+                let itemLi = pdItemFig[i].parentElement.parentElement;
                 let itemSpan = pdItemFig[i].children; 
-                let itemTit = itemSpan[0].className;//모든 li tit class
+                let itemTit = itemSpan[0].className;
                 let itemSub = itemSpan[1].textContent;
 
                 console.log(itemTit);
 
-                itemLi.classList.add(dNone);//클릭시 모든 아이템 숨기기
+                itemLi.classList.add(dNone);
                 itemLi.classList.remove('active');
 
                 checkArr.filter(function(n){
-                    if(n === itemTit){//배열 에서 이름이 일치하는게 있다면
-                        itemLi.classList.remove(dNone);//그건만 보이게
+                    if(n === itemTit){
+                        itemLi.classList.remove(dNone);
                         itemLi.classList.add('active');
                         return n == itemTit; 
                     }
@@ -187,16 +186,16 @@ for(let c = 0; c < pdCheckLi.length; c++){
             
 
         }else if(pdCheckLi[c].classList.contains('checked')){
-            pdCheckLi[c].classList.remove('checked');//체크 된 상태면 클래스 삭제
+            pdCheckLi[c].classList.remove('checked');
 
             let chxLabel = pdCheckLi[c].nextElementSibling;
-            let chxName =  chxLabel.getAttribute('for');//for 값
+            let chxName =  chxLabel.getAttribute('for');
 
             
             //체크박스 
-            for(let x = 0; x < checkArr.length; x++){ //현재 배열의 번호를 매김
-                if(checkArr[x] == chxName ){//만약 배열들중 재선택된 값이 들어있다면
-                    checkArr.splice(x,1);//x가 chxName 와같으면 x = chxName가 됨 chxName 이거 하나
+            for(let x = 0; x < checkArr.length; x++){
+                if(checkArr[x] == chxName ){
+                    checkArr.splice(x,1);
                     x--;   
                 } 
             }
@@ -204,18 +203,17 @@ for(let c = 0; c < pdCheckLi.length; c++){
 
             //리스트
             for(let i = 0; i < pdItemFig.length; i++){
-                let itemLi = pdItemFig[i].parentElement.parentElement;//모든 li
+                let itemLi = pdItemFig[i].parentElement.parentElement;
                 let itemSpan = pdItemFig[i].children; 
-                let itemTit = itemSpan[0].className;//모든 li 속 이름
+                let itemTit = itemSpan[0].className;
                 let itemSub = itemSpan[1].textContent;
 
-                itemLi.classList.add(dNone);//클릭시 모든 아이템 숨기기
+                itemLi.classList.add(dNone);
                 itemLi.classList.remove('active');
 
                 checkArr.filter(function(n){
-                    //itemLi.classList.add(dNone);
-                    if(n === itemTit ){//배열 에서 이름이 일치하는게 있다면
-                        itemLi.classList.remove(dNone);//그건만 보이게
+                    if(n === itemTit ){
+                        itemLi.classList.remove(dNone);
                         itemLi.classList.add('active');
                         return n == itemTit ;
                     }
@@ -226,7 +224,6 @@ for(let c = 0; c < pdCheckLi.length; c++){
                     console.log('빵');
                     itemLi.classList.remove(dNone);
                     itemLi.classList.add('active');
-                    // pdFillIdx.innerText = '15';
                 }
 
             }
@@ -244,13 +241,13 @@ for(let c = 0; c < pdCheckLi.length; c++){
 }
 for(let d = 0; d < pdCheckLiD.length; d++){
 
-    pdFillIdx.innerText = pdItemIdx;//상품 갯수 초기화
+    pdFillIdx.innerText = pdItemIdx;
 
-    pdCheckLiD[d].addEventListener('click',function(){//체크박스 클릭할때
+    pdCheckLiD[d].addEventListener('click',function(){
   
 
         if(!pdCheckLiD[d].classList.contains('checked')){
-            pdCheckLiD[d].classList.add('checked');//체크 안된 상태라면 클래스 추가
+            pdCheckLiD[d].classList.add('checked');
 
             let chxLabel = pdCheckLiD[d].nextElementSibling;
             let chxName =  chxLabel.getAttribute('for')
@@ -260,16 +257,16 @@ for(let d = 0; d < pdCheckLiD.length; d++){
 
             //리스트
             for(let i = 0; i < pdItemFig.length; i++){
-                let itemLi = pdItemFig[i].parentElement.parentElement;//모든 li
+                let itemLi = pdItemFig[i].parentElement.parentElement;
                 let itemSpan = pdItemFig[i].children; 
                 let itemSub = itemSpan[1].className;
 
-                itemLi.classList.add(dNone);//클릭시 모든 아이템 숨기기
+                itemLi.classList.add(dNone);
                 itemLi.classList.remove('active');
 
                 checkDArr.filter(function(n){
-                    if(n === itemSub){//배열 에서 이름이 일치하는게 있다면
-                        itemLi.classList.remove(dNone);//그건만 보이게
+                    if(n === itemSub){
+                        itemLi.classList.remove(dNone);
                         itemLi.classList.add('active');
                         return n == itemSub;
                     }
@@ -285,16 +282,16 @@ for(let d = 0; d < pdCheckLiD.length; d++){
             
 
         }else if(pdCheckLiD[d].classList.contains('checked')){
-            pdCheckLiD[d].classList.remove('checked');//체크 된 상태면 클래스 삭제
+            pdCheckLiD[d].classList.remove('checked');
 
             let chxLabel = pdCheckLiD[d].nextElementSibling;
-            let chxName =  chxLabel.getAttribute('for'); //재선택된 값
+            let chxName =  chxLabel.getAttribute('for');
 
             
             //체크박스 
-            for(let x = 0; x < checkDArr.length; x++){ //현재 배열의 번호를 매김
-                if(checkDArr[x] == chxName ){//만약 배열들중 재선택된 값이 들어있다면
-                    checkDArr.splice(x,1);//x가 chxName 와같으면 x = chxName가 됨 chxName 이거 하나
+            for(let x = 0; x < checkDArr.length; x++){
+                if(checkDArr[x] == chxName ){
+                    checkDArr.splice(x,1);
                     x--;   
                 } 
             }
@@ -302,17 +299,16 @@ for(let d = 0; d < pdCheckLiD.length; d++){
 
             //리스트
             for(let i = 0; i < pdItemFig.length; i++){
-                let itemLi = pdItemFig[i].parentElement.parentElement;//모든 li
+                let itemLi = pdItemFig[i].parentElement.parentElement;
                 let itemSpan = pdItemFig[i].children; 
                 let itemSub = itemSpan[1].className;
 
-                itemLi.classList.add(dNone);//클릭시 모든 아이템 숨기기
+                itemLi.classList.add(dNone);
                 itemLi.classList.remove('active')
 
                 checkDArr.filter(function(n){
-                    //itemLi.classList.add(dNone);
-                    if(n === itemSub ){//배열 에서 이름이 일치하는게 있다면
-                        itemLi.classList.remove(dNone);//그건만 보이게
+                    if(n === itemSub ){
+                        itemLi.classList.remove(dNone);
                         itemLi.classList.add('active')
                         return n == itemSub ;
                     }
@@ -365,20 +361,6 @@ pdClearBtn.addEventListener('click',()=>{
         //리스트 초기화
         itemLi.classList.add(dNone);
         itemLi.classList.remove('active');
-        // checkArr.filter(function(n){
-        //     if(n === itemTit){//배열 에서 이름이 일치하는게 있다면
-        //         itemLi.classList.remove(dNone);//그건만 보이게
-        //         itemLi.classList.add('active');
-        //         return n == itemTit;
-        //     }  
-        // });
-        // checkDArr.filter(function(n){
-        //     if(n === itemSub){//배열 에서 이름이 일치하는게 있다면
-        //         itemLi.classList.remove(dNone);//그건만 보이게
-        //         itemLi.classList.add('active');
-        //         return n == itemSub;
-        //     }  
-        // });
         if(checkArr.length == 0){
             // console.log('빵');
             itemLi.classList.remove(dNone);
@@ -476,9 +458,6 @@ let id = 0;
 let delateBtn;
 for(let i = 0; i < editTxtBox.length; i++){
     editTxtBox[i].addEventListener('click',()=>{
-
-        ///let editBox = dtOptionBtn[i].parentElement.parentElement//option 그룹
-       // let editImgbox = dtOptionBtn[i].parentElement.nextElementSibling;//img_wrap
         
         let editSvg = editTxtBox[i].querySelector('span');
         let editImgWrap = editTxtBox[i].nextElementSibling;
@@ -689,12 +668,10 @@ saveBtn.addEventListener('click',()=>{
     //위시 갯수
     wishIdx++;
     wishIdxSpan.style.display = 'block'
-    wishIdxSpan.innerText = wishIdx;//innerText innerHtml 차이
+    wishIdxSpan.innerText = wishIdx;
     if( saveName.value === ''){
-        saveNameNot() //이름 없을때
+        saveNameNot()
        }
-   // saveName.value === '' ? saveNameNot() : wishListAdd(); 이럴경우 이름 입력 안할시 리스트 추가 함수 작도 안됨
-   // ?:  조건문    |   벨류값이 없다면 saveNameNot()이게 성립될때  wishListAdd()실행
 
    savePopNone();//세이브 팝업 없애기
    wishListAdd();//위시리스트 아이템 추가
@@ -712,13 +689,13 @@ function savePopNone(){
 function saveNameNot(){
     console.log('이름 없음');
     let pdName = document.querySelector('.detail_right .title')
-    saveName.value = pdName.textContent; // = 넘기다 == 문자로 맞나 === 문자,타입형태까지 동일한지
+    saveName.value = pdName.textContent;
     console.log();
 }
 
 // wish item add
 function wishListAdd (){
-    wishPgtxt.style.display = 'none'//wish txt 텍스트 없애기
+    wishPgtxt.style.display = 'none'
     console.log('리스트 추가 됨');
 
     let customName = saveName.value;
@@ -774,7 +751,7 @@ function  listDelate(){
             removeItem.remove();
 
             wishIdx--;
-            wishIdxSpan.innerText = wishIdx;//innerText innerHtml 차이
+            wishIdxSpan.innerText = wishIdx;
 
             if(wishIdx == 0){
                 wishPgtxt.style.display = 'block'// 

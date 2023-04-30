@@ -331,7 +331,6 @@ const slogan = document.querySelectorAll('.sloganImg  img');
 let sloganAll = slogan.length;
 let nowIndex = 0;
 let myArray = [];
-sloganslide();
 function sloganslide(){
     
     for(let i = 0; i < sloganAll; i++){

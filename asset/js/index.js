@@ -4,7 +4,7 @@ window.onload = function(){
     // headReset();
     // headerBgc();
     mainVisualSlide();
-    // sloganslide(); 
+    sloganslide(); 
     // footer()
 };
 window.onresize = function(){
