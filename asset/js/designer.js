@@ -1,19 +1,15 @@
 window.onload = function(){ 
     reset();
-    headReset()
     designIntro()
-    headerBgc();
-    footer()
-
 };
 const designIntroImg = document.querySelector('.designers_area .sc_intro .img_wrap img');
 const designIntroTxt = document.querySelector('.designers_area .sc_intro .title');
-
 window.onresize = function(){
-    // document.location.reload();
-    window.scrollTo(0, 0);
-  };
-  
+    if(matchMedia("screen and (min-width: 768px)").matches){
+        document.location.reload();
+        window.scrollTo(0, 0);
+    };
+}
 function reset(){
     designIntroImg.style.opacity = 0;
     designIntroImg.style.transform = `scale(1.2)`;
@@ -24,7 +20,6 @@ function reset(){
         cursorImg[i].style.opacity =0;
     }
 }
-
 function  designIntro(){
 
     setTimeout(()=>{

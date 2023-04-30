@@ -1,25 +1,22 @@
 'use strict';//
 window.onload = function(){ 
     reset();
-    headReset()
-    headerBgc();
     aboutIntroBg()
     sloganslide(); 
-    footer()
 };
 const aboutIntroImg = document.querySelector('.about_area .sc_intro .intro_group .img_wrap');
 const aboutIntroTxt = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap');
 const aboutIntroTit = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap .title span');
 window.onresize = function(){
-    // document.location.reload();
-    window.scrollTo(0, 0);
-  };
-
+    if(matchMedia("screen and (min-width: 768px)").matches){
+        document.location.reload();
+        window.scrollTo(0, 0);
+    };
+}
 function reset(){
     aboutIntroImg.style.opacity = 0;
     aboutIntroImg.style.width = '0';
     aboutIntroTxt.style.opacity = 0;
-   // aboutIntroTit.style.transform = 'translateY(100%)';
 
     for(let r=0;r<aboutHisSpot.length; r++){
         aboutHisSpot[r].style.opacity = 0;
@@ -43,10 +40,6 @@ function aboutIntroBg(){
     setTimeout(()=>{
         aboutIntroTxt.style.opacity = 1;
         aboutIntroTxt.style.transition = '1s ease'
-        // setTimeout(()=>{
-        //     aboutIntroTit.style.transform = 'translateY(0%)';
-        //     aboutIntroTit.style.transition = '.5s ease'
-        // },500)
     },500)
 
 }
@@ -63,7 +56,6 @@ window.addEventListener('scroll',()=>{
         let triPer = 0;
 
         triPer = (scrollNow - triger) / winHeight * 10  
-       // console.log(triPer);
         if( 15 <= triPer){
             aboutHisSpot[h].style.opacity = 1;
             aboutHisSpot[h].style.transform = 'translateY(0)';
@@ -118,7 +110,6 @@ document.location.reload();
 makeClone();
 
 function makeClone(){
-    //복사본
    for(let i = 0; i < slideIndex; i++){
        let  cloneSlide = aboutFhLi[i].cloneNode(true);
        cloneSlide.classList.add('clone')
@@ -159,7 +150,7 @@ aboutFhPrev.addEventListener('click',function(){
 })
 function moveSlide(num){
     aboutFhWrap.style.left = - num * (slideWidth + slideMargin ) + 'vw';
-    currIndex = num;//바뀐 순번을 적용하기
+    currIndex = num;
     console.log(currIndex , slideIndex); 
     
     if(currIndex == slideIndex || currIndex == -slideIndex){

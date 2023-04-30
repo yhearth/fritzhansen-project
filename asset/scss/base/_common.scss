@@ -67,7 +67,7 @@ body{
 .cursor{
     position: fixed;
     top: 0;left: 0;
-    width: 20vw;height: 20vw;
+    width: 300px;height: 300px;//20vw
     z-index: 10;
     pointer-events: none;//커서이미지와 마우스가 겹쳐지면 커서 아래 커서이미지 클릭 안될려구
     overflow: hidden;
