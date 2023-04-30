@@ -682,14 +682,14 @@ main{
                         .zoom{
                             flex-grow: 1;
                             justify-content: end;
-                            input[type = "range"]{//브라우저 지원 확인하기
-                               -webkit-appearance: none;//지원하는 고유 스타일 x
+                            input[type = "range"]{
+                               -webkit-appearance: none;
                                 background: #efede9;
                                 width: 10vw;height: 10px;
                                 border-radius: 5px; 
 
                                 overflow: hidden;
-                                cursor: pointer;//마우스 닿을때 손가락 모양
+                                cursor: pointer;
                                 @include tablet{width: 12vw;}
                                 @include mobile {display: none;}
                             }
@@ -704,7 +704,7 @@ main{
                                 inset 3px 3px 3px rgba(0,0,0,0.1);
                                 cursor: pointer;
                              }
-                            input[type="range"]::-webkit-slider-thumb { //줌 마우스 부1ns
+                            input[type="range"]::-webkit-slider-thumb {
                                 width: 15px;height: 9px;
                                 border-radius: 5px;
                                 background: #525252;
@@ -778,17 +778,17 @@ main{
                                     display: none;//기존것 삭제
                                 }
                                 label{
-                                    display: flex;//라벨 텍스트 줄바꿈 열 맞추기
+                                    display: flex;
                                     justify-content: space-between;
                                     align-items: center;
-                                    &::before{ // input 새로 만들기
+                                    &::before{ 
                                         content: '';
                                         position: relative;
                                         display: inline-block;
                                         width: 1.2vw; height:1.2vw;
                                         margin-right: 2vw;
                                         border:1px solid #000;
-                                        vertical-align: -3px;// 체크박스와 label 정렬 
+                                        vertical-align: -3px;
                                         cursor: pointer;
                                         @include tablet {width: 2vw;height: 2vw;margin-right: 4vw;}
 
@@ -1328,8 +1328,6 @@ main{
                                 img{
                                     width: 100%;height: 100%;object-fit: cover;
                                     box-sizing: border-box;
-                                    //이미지는 컨텐츠를 담을수 없기때문에 가상요소를 추가할수 없다
-                                  //  <div>안에 <img>태그를 넣었기 때문에 이미지가 부모인 <div>엘리먼트의 baseline에 맞추어 <img>도 baseline을 정렬한 것 이다. = 정렬 안맞음=border / block에 verticla 상요 불가
                                 }
                                 span{
                                     font-size: .8vw;

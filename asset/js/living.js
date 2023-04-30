@@ -1,20 +1,18 @@
 window.onload = function(){ 
     reset()
-    headReset()
-    headerBgc();
     livingIntro()
     sloganslide(); 
-    footer()
-
 };
 const ivIntro = document.querySelector('.living_area .sc_intro');
 const ivIntroImg = document.querySelector('.living_area .sc_intro .img_wrap img');
 const ivIntroTit = document.querySelector('.living_area .sc_intro .title');
 
 window.onresize = function(){
-    // document.location.reload();
-    window.scrollTo(0, 0);
-};
+    if(matchMedia("screen and (min-width: 768px)").matches){
+        document.location.reload();
+        window.scrollTo(0, 0);
+    };
+}
 
 function reset(){
     ivIntroImg.style.transform = `scale(1.5)`;
@@ -56,10 +54,10 @@ window.addEventListener('scroll',()=> {
     
     for(let i = 0; i <trigerLiving.length; i++){
        
-        let scrollNow = document.documentElement.scrollTop;//스크롤 바 bottom
-        let winHeight = window.innerHeight;//현재 화면 높이값
-        let trigerBottom = trigerLiving[i].offsetTop;//요소의 bottom
-        let trigerTop = trigerBottom - winHeight; //요소의 top
+        let scrollNow = document.documentElement.scrollTop;
+        let winHeight = window.innerHeight;
+        let trigerBottom = trigerLiving[i].offsetTop;
+        let trigerTop = trigerBottom - winHeight;
         let bgProPer = 0;
 
         bgProPer = (scrollNow - trigerTop) / winHeight * 10;

@@ -1,11 +1,8 @@
 'use strict';//
 window.onload = function(){ 
     reset()
-    // headReset();
-    // headerBgc();
     mainVisualSlide();
     sloganslide(); 
-    // footer()
 };
 window.onresize = function(){
     if(matchMedia("screen and (min-width: 768px)").matches){
