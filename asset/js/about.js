@@ -1,18 +1,43 @@
-'use strict';//
-window.onload = function(){ 
-    reset();
-    aboutIntroBg()
-    sloganslide(); 
-};
+'use strict';
 const aboutIntroImg = document.querySelector('.about_area .sc_intro .intro_group .img_wrap');
 const aboutIntroTxt = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap');
 const aboutIntroTit = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap .title span');
-
+//history
+const aboutHisSpot = document.querySelectorAll('.about_area .sc_history>div');
+//mv 
+const aboutMv = document.querySelector('.about_area .sc_mv .mv');
+const aboutMvBtn = document.querySelectorAll('.about_area .sc_mv .state_btn>button');
+//cate
+const aboutFhWrap = document.querySelector('.about_area .sc_aboutFH .slide_list');
+const aboutFhLi = document.querySelectorAll('.about_area .sc_aboutFH .slide_list li');
+const aboutFhPrev= document.querySelector('.about_area .sc_aboutFH .control .btn_prev');
+const aboutFhNext= document.querySelector('.about_area .sc_aboutFH .control .btn_next');
+let currIndex = 0;
+let slideIndex = aboutFhLi.length;
+let slideWidth = 23
+let slideMargin = 2
+if(matchMedia("screen and (max-width: 767px)").matches){
+    slideWidth = 50
+    slideMargin = 4
+}else if(matchMedia("screen and (max-width: 1023px)").matches){
+    slideWidth = 35
+    slideMargin = 3
+}
+function handleResize() {
+    if (window.innerWidth < 768) {
+        slideWidth = 50
+        slideMargin = 4
+        makeClone()
+    }else if(window.innerWidth < 1024){
+        slideWidth = 35
+        slideMargin = 3
+        makeClone()
+    }
+}
 function reset(){
     aboutIntroImg.style.opacity = 0;
     aboutIntroImg.style.width = '0';
     aboutIntroTxt.style.opacity = 0;
-
     for(let r=0;r<aboutHisSpot.length; r++){
         aboutHisSpot[r].style.opacity = 0;
         aboutHisSpot[r].style.transform = 'translateY(15%)';
@@ -22,10 +47,7 @@ function reset(){
         }
     }
     aboutMvBtn[0].classList.add('on');
-
 }
-
-//intro
 function aboutIntroBg(){
     setTimeout(()=>{
         aboutIntroImg.style.opacity = 1;
@@ -38,12 +60,8 @@ function aboutIntroBg(){
     },500)
 
 }
-//scroll history
-const aboutHisSpot = document.querySelectorAll('.about_area .sc_history>div');
-
-window.addEventListener('scroll',()=>{
+function onAboutScroll(){
     for(let h=0;h<aboutHisSpot.length; h++){
-
         let winHeight = window.innerHeight;
         let scrollNow = document.documentElement.scrollTop;
         let trigeSpot = aboutHisSpot[h].offsetTop;
@@ -57,53 +75,7 @@ window.addEventListener('scroll',()=>{
             aboutHisSpot[h].style.transition = '1s ease'
         }
     }
-
-})
-
-//mv 
-const aboutMv = document.querySelector('.about_area .sc_mv .mv');
-const aboutMvBtn = document.querySelectorAll('.about_area .sc_mv .state_btn>button');
-
-for(let b =0;b < aboutMvBtn.length; b++){
-
-     aboutMvBtn[b].addEventListener('click',()=>{
-
-        if( aboutMvBtn[b].classList.contains('stop')){
-            aboutMvBtn[0].classList.remove('on');
-            aboutMvBtn[1].classList.add('on');
-            aboutMv.pause();
-        }else{
-            aboutMvBtn[0].classList.add('on');
-            aboutMvBtn[1].classList.remove('on');
-            aboutMv.play();
-        }
-     })
 }
-
-//cate
-const aboutFhWrap = document.querySelector('.about_area .sc_aboutFH .slide_list');
-const aboutFhLi = document.querySelectorAll('.about_area .sc_aboutFH .slide_list li');
-const aboutFhPrev= document.querySelector('.about_area .sc_aboutFH .control .btn_prev');
-const aboutFhNext= document.querySelector('.about_area .sc_aboutFH .control .btn_next');
-
-let currIndex = 0;
-let slideIndex = aboutFhLi.length;
-let slideWidth = 23
-let slideMargin = 2
-if(matchMedia("screen and (max-width: 767px)").matches){
-    slideWidth = 50
-    slideMargin = 4
-}else if(matchMedia("screen and (max-width: 1023px)").matches){
-    slideWidth = 35
-    slideMargin = 3
-}
-  
-window.onresize = function(){
-document.location.reload();
-};
-
-makeClone();
-
 function makeClone(){
    for(let i = 0; i < slideIndex; i++){
        let  cloneSlide = aboutFhLi[i].cloneNode(true);
@@ -115,14 +87,11 @@ function makeClone(){
     cloneSlide.classList.add('clone')
     aboutFhWrap.prepend(cloneSlide)
    }
-
    updateWidth()
    setIntialPos();
    setTimeout(()=>{
-     aboutFhWrap.classList.add('ani');
-   },100)
-
-     
+      aboutFhWrap.classList.add('ani');
+   },100) 
 }
 function updateWidth(){
     let currSlideLi = document.querySelectorAll('.slide_wrap li');
@@ -136,13 +105,14 @@ function setIntialPos(){
     let resetPos = -(slideWidth + slideMargin ) * slideIndex;
     aboutFhWrap.style.transform = 'translateX('+ resetPos +'vw)';
 }
-
-aboutFhNext.addEventListener('click',function(){
-    moveSlide(currIndex + 1);
-})
-aboutFhPrev.addEventListener('click',function(){
-    moveSlide(currIndex - 1);
-})
+function onAbSlideBtn(){
+    aboutFhNext.addEventListener('click',function(){
+        moveSlide(currIndex + 1);
+    })
+    aboutFhPrev.addEventListener('click',function(){
+        moveSlide(currIndex - 1);
+    })
+}
 function moveSlide(num){
     aboutFhWrap.style.left = - num * (slideWidth + slideMargin ) + 'vw';
     currIndex = num;
@@ -157,14 +127,45 @@ function moveSlide(num){
         },500)
         setTimeout(()=>{
             aboutFhWrap.classList.add('ani');
-        },505)
+        },600)
     }
 
 
 
 
 }
+function onAboutMvBtn(){
+    for(let b =0;b < aboutMvBtn.length; b++){
 
+        aboutMvBtn[b].addEventListener('click',()=>{
+           if( aboutMvBtn[b].classList.contains('stop')){
+               aboutMvBtn[0].classList.remove('on');
+               aboutMvBtn[1].classList.add('on');
+               aboutMv.pause();
+           }else{
+               aboutMvBtn[0].classList.add('on');
+               aboutMvBtn[1].classList.remove('on');
+               aboutMv.play();
+           }
+        })
+   }
+}
+
+
+function addEvent() {
+    aboutIntroBg();
+    window.addEventListener('scroll',onAboutScroll);
+    makeClone();
+    onAbSlideBtn()  
+    onAboutMvBtn()
+    sloganslide(); 
+}
+function init() {
+    reset();
+    window.addEventListener('resize', handleResize);
+    addEvent()  
+}
+init();
 
 
 

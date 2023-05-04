@@ -1,59 +1,11 @@
-window.onload = function(){
-    reset();
-    // headReset()
-    // headerBgc();
-    productIntroBg();
-    // footer()
-}
-
-function reset(){
-    pdIntroImg.style.transform = `scale(1.3)`;
-    pdIntroTxt.style.opacity = 0;
-    pdIntroTit.style.transform ='translateY(100%)'
-
-    //detail page
-    pdDtailPage.classList.add('disable');
-    detailPage.classList.add('disable');
-    wishPage.classList.add('disable');
-
-    pdDtailR.style.right = '-100%';
-    if(matchMedia("screen and (max-width: 767px)").matches){
-        pdDtailR.style.top = '100%';
-        likePopup.style.opacity = 0;
-    }
-    savePopup.style.display ='none'
-    savePopup.style.opacity = 0;
-    wishTxtWrap.style.opacity = 0;
-
-    wishPgGp.style.opacity =0;
-    wishPgGp.style.transform = 'translateY(10%)';
-}
-
+'use strict';
 const pdPage = document.querySelector('.product_page')
 const pdIntro = document.querySelector('.product_page .sc_intro')
 const pdIntroBg = document.querySelector('.product_page .sc_intro  .img_wrap')
 const pdIntroImg = document.querySelector('.product_page .sc_intro .img_wrap img')
 const pdIntroTxt = document.querySelector('.product_page .sc_intro .txt_wrap')
 const pdIntroTit = document.querySelector('.product_page .sc_intro .txt_wrap .title')
-
-//intro ani
-function productIntroBg(){
-    setTimeout(() => {
-        pdIntro.style.opacity = 1;
-        pdIntro.style.transition = '1s ease'
-        setTimeout(()=>{
-            pdIntroImg.style.transform = `scale(1)`;
-            pdIntroImg.style.transition='1s ease';
-        },500)
-        setTimeout(()=>{
-            pdIntroTxt.style.opacity = 1;
-            pdIntroTxt.style.transition='.5s ease';
-            pdIntroTit.style.transform ='translateY(0)'
-            pdIntroTit.style.transition='.5s  ease';
-        },700)
-    },500);
-}
-
+//
 const pdFillTool= document.querySelectorAll('.product_page .fillter_tool li')
 const pdFillIdx = document.querySelector('.product_page .fillter_tool .counter span')
 const pdFillList= document.querySelector('.product_page .fillter_list')
@@ -72,349 +24,8 @@ let pdItemIdx  = pdItem.length;
 const dNone = 'd-none';
 const checkArr = []
 const checkDArr = []
-//fillter btn
-for(let f = 0; f < pdFillTool.length; f++){
-
-    pdFillTool[f].addEventListener('click',()=>{
-
-        let toolSvg = pdFillTool[f].children;
-
-        if( pdFillTool[f].classList.contains('off')){
-            pdFillTool[f].classList.remove('off');
-            pdFillTool[f].classList.add('on');
-            toolSvg[1].style.transform = 'rotate(270deg)';
-            toolSvg[1].style.transition = '.5s ease';
-            pdFillList.classList.add('on');//
-
-            if(pdFillTool[f].classList.contains('seires')){
-                pdListSei.style.display = 'flex';
-                pdListDesign.style.display = 'none';
-        
-                pdFillTool[2].classList.remove('on');
-                pdFillTool[2].classList.add('off');
-        
-              
-                let rSvg = pdFillTool[2].children;
-                 rSvg[1].style.transform = 'rotate(90deg)';
-                 rSvg[1].style.transition = '.5s ease';
-                
-            }else if(pdFillTool[f].classList.contains('designer')){
-                pdListSei.style.display = 'none';
-                pdListDesign.style.display = 'flex';
-        
-                pdFillTool[1].classList.remove('on');
-                pdFillTool[1].classList.add('off');
-        
-                let xSvg = pdFillTool[1].children;
-                xSvg[1].style.transform = 'rotate(90deg)';
-                xSvg[1].style.transition = '.5s ease';
-        
-            }
-
-        }else if(pdFillTool[f].classList.contains('on')){
-            pdFillTool[f].classList.remove('on');
-            pdFillTool[f].classList.add('off');
-            toolSvg[1].style.transform = 'rotate(90deg)';
-            toolSvg[1].style.transition = '.5s ease';
-
-            pdFillList.classList.remove('on');
-            pdListSei.style.display = 'none';
-            pdListDesign.style.display = 'none';
-
-
-
-
-        }
-
-    })
-}
-//list grid
-pdRangeInput.addEventListener('change',function(){
-    document.documentElement.style.setProperty('--minRangeValue',`${this.value}vw`)
-     console.log(this.value);
-})
-//fillter check
-for(let c = 0; c < pdCheckLi.length; c++){
-
-
-    pdFillIdx.innerText = pdItemIdx;
-
-    pdCheckLi[c].addEventListener('click',function(){
-  
-        if(!pdCheckLi[c].classList.contains('checked')){
-            pdCheckLi[c].classList.add('checked');
-
-            let chxLabel = pdCheckLi[c].nextElementSibling;
-            let chxName =  chxLabel.getAttribute('for');
-
-            //체크박스
-            checkArr.push(chxName);
-
-            //리스트
-            for(let i = 0; i < pdItemFig.length; i++){
-                let itemLi = pdItemFig[i].parentElement.parentElement;
-                let itemSpan = pdItemFig[i].children; 
-                let itemTit = itemSpan[0].className;
-                let itemSub = itemSpan[1].textContent;
-
-                console.log(itemTit);
-
-                itemLi.classList.add(dNone);
-                itemLi.classList.remove('active');
-
-                checkArr.filter(function(n){
-                    if(n === itemTit){
-                        itemLi.classList.remove(dNone);
-                        itemLi.classList.add('active');
-                        return n == itemTit; 
-                    }
-                }); 
-
-            }
-            
-            //상품 갯수 
-            let viewitemIdx = document.querySelectorAll('.pd_list .active')
-            pdItemIdx = viewitemIdx.length
-            pdFillIdx.innerText = pdItemIdx
-
-            console.log(checkArr);
-            
-
-        }else if(pdCheckLi[c].classList.contains('checked')){
-            pdCheckLi[c].classList.remove('checked');
-
-            let chxLabel = pdCheckLi[c].nextElementSibling;
-            let chxName =  chxLabel.getAttribute('for');
-
-            
-            //체크박스 
-            for(let x = 0; x < checkArr.length; x++){
-                if(checkArr[x] == chxName ){
-                    checkArr.splice(x,1);
-                    x--;   
-                } 
-            }
-            console.log(checkArr);
-
-            //리스트
-            for(let i = 0; i < pdItemFig.length; i++){
-                let itemLi = pdItemFig[i].parentElement.parentElement;
-                let itemSpan = pdItemFig[i].children; 
-                let itemTit = itemSpan[0].className;
-                let itemSub = itemSpan[1].textContent;
-
-                itemLi.classList.add(dNone);
-                itemLi.classList.remove('active');
-
-                checkArr.filter(function(n){
-                    if(n === itemTit ){
-                        itemLi.classList.remove(dNone);
-                        itemLi.classList.add('active');
-                        return n == itemTit ;
-                    }
-
-                }); 
-
-                if(checkArr.length == 0){
-                    console.log('빵');
-                    itemLi.classList.remove(dNone);
-                    itemLi.classList.add('active');
-                }
-
-            }
-
-            //상품 갯수 
-            let viewitemIdx = document.querySelectorAll('.pd_list .active')
-            pdItemIdx = viewitemIdx.length
-            pdFillIdx.innerText = pdItemIdx
-
-
-        }
-
-    })
-
-}
-for(let d = 0; d < pdCheckLiD.length; d++){
-
-    pdFillIdx.innerText = pdItemIdx;
-
-    pdCheckLiD[d].addEventListener('click',function(){
-  
-
-        if(!pdCheckLiD[d].classList.contains('checked')){
-            pdCheckLiD[d].classList.add('checked');
-
-            let chxLabel = pdCheckLiD[d].nextElementSibling;
-            let chxName =  chxLabel.getAttribute('for')
-
-            //체크박스
-            checkDArr.push(chxName);
-
-            //리스트
-            for(let i = 0; i < pdItemFig.length; i++){
-                let itemLi = pdItemFig[i].parentElement.parentElement;
-                let itemSpan = pdItemFig[i].children; 
-                let itemSub = itemSpan[1].className;
-
-                itemLi.classList.add(dNone);
-                itemLi.classList.remove('active');
-
-                checkDArr.filter(function(n){
-                    if(n === itemSub){
-                        itemLi.classList.remove(dNone);
-                        itemLi.classList.add('active');
-                        return n == itemSub;
-                    }
-                }); 
-            }
-
-            //상품 갯수 
-            let viewitemIdx = document.querySelectorAll('.pd_list .active')
-            pdItemIdx = viewitemIdx.length
-            pdFillIdx.innerText = pdItemIdx
-
-            console.log(checkDArr);
-            
-
-        }else if(pdCheckLiD[d].classList.contains('checked')){
-            pdCheckLiD[d].classList.remove('checked');
-
-            let chxLabel = pdCheckLiD[d].nextElementSibling;
-            let chxName =  chxLabel.getAttribute('for');
-
-            
-            //체크박스 
-            for(let x = 0; x < checkDArr.length; x++){
-                if(checkDArr[x] == chxName ){
-                    checkDArr.splice(x,1);
-                    x--;   
-                } 
-            }
-            console.log(checkDArr);
-
-            //리스트
-            for(let i = 0; i < pdItemFig.length; i++){
-                let itemLi = pdItemFig[i].parentElement.parentElement;
-                let itemSpan = pdItemFig[i].children; 
-                let itemSub = itemSpan[1].className;
-
-                itemLi.classList.add(dNone);
-                itemLi.classList.remove('active')
-
-                checkDArr.filter(function(n){
-                    if(n === itemSub ){
-                        itemLi.classList.remove(dNone);
-                        itemLi.classList.add('active')
-                        return n == itemSub ;
-                    }
-                });
-                
-                if(checkArr.length == 0){
-                    itemLi.classList.remove(dNone);
-                    itemLi.classList.add('active')
-                }
-            }
-            
-            //상품 갯수 
-            let viewitemIdx = document.querySelectorAll('.pd_list .active')
-            pdItemIdx = viewitemIdx.length
-            pdFillIdx.innerText = pdItemIdx
-
-        }
-
-    })
-
-}
-//clear btn
-pdClearBtn.addEventListener('click',()=>{
-
-    console.log('클리어')
-    //체크박스 - 체크된 클래스 삭제 - 시리즈
-    for(let c = 0; c < pdCheckLi.length; c++){
-        pdCheckLi[c].classList.remove('checked');
-        pdCheckLi[c].checked = false;    
-    }
-    //체크박스 - 체크된 클래스 삭제 - 디자이너
-    for(let c = 0; c < pdCheckLiD.length; c++){
-        pdCheckLiD[c].classList.remove('checked');
-        pdCheckLiD[c].checked = false;    
-    }
-    //체크 리스트 리셋 -시리즈
-    for(let a = 0; a < checkArr.length; a++){
-        checkArr.splice(a);
-    }
-     //체크 리스트 리셋 - 디자이너
-    for(let a = 0; a < checkDArr.length; a++){
-        checkDArr.splice(a);
-    }
-    //리스트
-    for(let i = 0; i < pdItemFig.length; i++){
-        let itemLi = pdItemFig[i].parentElement.parentElement;//모든 li
-        let itemSpan = pdItemFig[i].children; 
-        let itemTit = itemSpan[0].className;
-        let itemSub = itemSpan[1].className;;
-        //리스트 초기화
-        itemLi.classList.add(dNone);
-        itemLi.classList.remove('active');
-        if(checkArr.length == 0){
-            // console.log('빵');
-            itemLi.classList.remove(dNone);
-            itemLi.classList.add('active');
-        }
-    }
-    //상품 갯수 
-    let viewitemIdx = document.querySelectorAll('.pd_list .active')
-    pdItemIdx = viewitemIdx.length
-    pdFillIdx.innerText = pdItemIdx
-
-    console.log(checkArr);
-
-})
-//item click / page open
-for(let i = 0;i < pdItem.length; i++){
-    pdItem[i].addEventListener('click',()=>{
-        setTimeout(()=>{//pd body 사라지기
-            pdPage.style.opacity = 0;
-            pdPage.style.transition ='1s ease'
-            setTimeout(()=>{
-                pdPage.classList.add('disable');
-            },1000)
-        })
-        setTimeout(()=>{//footer 사라지기
-            pdFooter.style.opacity = 0;
-            pdFooter.style.transition ='1s ease'
-            setTimeout(()=>{
-                pdFooter.classList.add('disable');
-            },1000)
-        })
-
-        //디테일 페이지 열기
-        pdDtailPage.classList.remove('disable');
-        detailPage.classList.remove('disable');
-        setTimeout(()=>{
-            pdDtailPage.style.opacity = '1'
-            pdDtailPage.style.transition = '.5s ease';
-            detailPage.style.opacity = '1'
-            detailPage.style.transition = '.8s ease';
-
-            pdDtailR.style.right = '0%';
-            pdDtailR.style.transition ='1s ease'
-            window.scrollTo(0, 0);
-
-            if(matchMedia("screen and (max-width: 767px)").matches){
-                pdDtailR.style.top = '65%';
-                likePopup.style.opacity = 1;
-                likePopup.style.transition = '.5s .8s ease'
-            }
-
-        },1000)
-
-    })
-}  
-
-/////////////////detail page
+//detail page
 const pdDtailPage = document.querySelector('.product_detail')
-
 const shellImgBox = document.querySelector('.detail_left .shell img')
 const shellSideImg = document.querySelector('.detail_left .shell_side img')
 const shellLeftImg = document.querySelector('.detail_left .shell_left img')
@@ -423,9 +34,7 @@ const baseImgBox = document.querySelector('.detail_left .base img')
 const baseSideImg = document.querySelector('.detail_left .base_side img')
 const baseLeftImg = document.querySelector('.detail_left .base_left img')
 const baseRightImg = document.querySelector('.detail_left .base_right img')
-
 const pdDtailR = document.querySelector('.detail_right')
-
 const editTxtBox = document.querySelectorAll('.product_detail .detail_right .edit_group .txt_wrap')
 const shellBox= document.querySelectorAll('.product_detail .detail_right .edit_shell .img_box')
 const baseBox= document.querySelectorAll('.product_detail .detail_right .edit_base .img_box')
@@ -451,44 +60,6 @@ let baseIdx = 0;
 let wishIdx = 0;
 let id = 0;
 let delateBtn;
-for(let i = 0; i < editTxtBox.length; i++){
-    editTxtBox[i].addEventListener('click',()=>{
-        
-        let editSvg = editTxtBox[i].querySelector('span');
-        let editImgWrap = editTxtBox[i].nextElementSibling;
-        let editBox = editTxtBox[i].parentElement;
-        console.log(editBox)
-
-        if(!editTxtBox[i].classList.contains('active')){
-            editTxtBox[i].classList.add('active');
-
-            editSvg.style.transform = 'rotate(360deg)';
-            editSvg.style.transition = '.5s ease'
-            editImgWrap.classList.add('on');
-
-            if(editBox.classList.contains('edit_shell')){
-                console.log('shell option')
-                shellOptionClick();
-
-            }else if(editBox.classList.contains('edit_base')){
-                console.log('base option')
-                baseOptionClick();
-            }
-
-        }
-        else if(editTxtBox[i].classList.contains('active')){
-            editTxtBox[i].classList.remove('active');
-
-            editSvg.style.transform = 'rotate(180deg)';
-            editSvg.style.transition = '.5s ease'
-            editImgWrap.classList.remove('on');
-        }
-
-
-    })
-
-}
-
 const shellImgSrc = [
     './asset/img/shell_option_30.png',
     './asset/img/shell_option_20.png',
@@ -533,7 +104,6 @@ const shellRightSrc = [
     './asset/img/pd_detail/shell_right_60.png',
     './asset/img/pd_detail/shell_right_90.png',
 ]
-//
 const baseImgSrc = [
     './asset/img/base_option_chrom.png',
     './asset/img/base_option_390.png',
@@ -572,11 +142,403 @@ const baseRightSrc = [
     './asset/img/pd_detail/base_right_150.png',
     './asset/img/pd_detail/base_right_100.png',
 ]
-
 let shellName;
 let baseName;
 
-//shell check
+function reset(){
+    pdIntroImg.style.transform = `scale(1.3)`;
+    pdIntroTxt.style.opacity = 0;
+    pdIntroTit.style.transform ='translateY(100%)'
+
+    //detail page
+    pdDtailPage.classList.add('disable');
+    detailPage.classList.add('disable');
+    wishPage.classList.add('disable');
+
+    pdDtailR.style.right = '-100%';
+    if(matchMedia("screen and (max-width: 767px)").matches){
+        pdDtailR.style.top = '100%';
+        likePopup.style.opacity = 0;
+    }
+    savePopup.style.display ='none'
+    savePopup.style.opacity = 0;
+    wishTxtWrap.style.opacity = 0;
+
+    wishPgGp.style.opacity =0;
+    wishPgGp.style.transform = 'translateY(10%)';
+}
+function productIntroBg(){
+    setTimeout(() => {
+        pdIntro.style.opacity = 1;
+        pdIntro.style.transition = '1s ease'
+        setTimeout(()=>{
+            pdIntroImg.style.transform = `scale(1)`;
+            pdIntroImg.style.transition='1s ease';
+        },500)
+        setTimeout(()=>{
+            pdIntroTxt.style.opacity = 1;
+            pdIntroTxt.style.transition='.5s ease';
+            pdIntroTit.style.transform ='translateY(0)'
+            pdIntroTit.style.transition='.5s  ease';
+        },700)
+    },500);
+}
+
+//filter
+function onFilter(){
+    for(let f = 0; f < pdFillTool.length; f++){
+        pdFillTool[f].addEventListener('click',()=>{
+    
+            let toolSvg = pdFillTool[f].children;
+    
+            if( pdFillTool[f].classList.contains('off')){
+                pdFillTool[f].classList.remove('off');
+                pdFillTool[f].classList.add('on');
+                toolSvg[1].style.transform = 'rotate(270deg)';
+                toolSvg[1].style.transition = '.5s ease';
+                pdFillList.classList.add('on');
+    
+                if(pdFillTool[f].classList.contains('seires')){
+                    pdListSei.style.display = 'flex';
+                    pdListDesign.style.display = 'none';
+            
+                    pdFillTool[2].classList.remove('on');
+                    pdFillTool[2].classList.add('off');
+            
+                    let rSvg = pdFillTool[2].children;
+                     rSvg[1].style.transform = 'rotate(90deg)';
+                     rSvg[1].style.transition = '.5s ease';
+                    
+                }else if(pdFillTool[f].classList.contains('designer')){
+                    pdListSei.style.display = 'none';
+                    pdListDesign.style.display = 'flex';
+            
+                    pdFillTool[1].classList.remove('on');
+                    pdFillTool[1].classList.add('off');
+            
+                    let xSvg = pdFillTool[1].children;
+                    xSvg[1].style.transform = 'rotate(90deg)';
+                    xSvg[1].style.transition = '.5s ease';
+            
+                }
+    
+            }else if(pdFillTool[f].classList.contains('on')){
+                pdFillTool[f].classList.remove('on');
+                pdFillTool[f].classList.add('off');
+                toolSvg[1].style.transform = 'rotate(90deg)';
+                toolSvg[1].style.transition = '.5s ease';
+    
+                pdFillList.classList.remove('on');
+                pdListSei.style.display = 'none';
+                pdListDesign.style.display = 'none';
+            }
+    
+        })
+    }
+}
+function onGridGallery(){
+     document.documentElement.style.setProperty('--minRangeValue',`${this.value}vw`)
+     console.log(this.value);
+}
+function onFilterCheck(check){
+    let checkSeir = check;
+
+    pdFillIdx.innerText = pdItemIdx;//총갯수
+  
+        if(!checkSeir.classList.contains('checked')){
+            checkSeir.classList.add('checked');//체크 표시
+
+            let chxLabel = checkSeir.nextElementSibling;//라벨이름
+            let chxName =  chxLabel.getAttribute('for');//라벨 for값
+
+            //체크박스
+            checkArr.push(chxName);//선택된 라벨 for값 넣어주기
+
+            //리스트
+            for(let i = 0; i < pdItemFig.length; i++){
+                let itemLi = pdItemFig[i].parentElement.parentElement;
+                let itemSpan = pdItemFig[i].children; 
+                let itemTit = itemSpan[0].className;//제품 이름
+                let itemSub = itemSpan[1].textContent;//디자이너 이름
+
+               // console.log(itemTit);//제품 이름 
+
+                itemLi.classList.add(dNone);//모든 제품 없애기
+                itemLi.classList.remove('active');
+
+                checkArr.filter(function(n){
+                    if(n === itemTit){//선택된 for 이름 값과 같은 제품이름이 있다면
+                        itemLi.classList.remove(dNone);
+                        itemLi.classList.add('active');//추가
+                        return n == itemTit; 
+                    }
+                }); 
+
+            }
+            
+            //상품 갯수 
+            let viewitemIdx = document.querySelectorAll('.pd_list .active')
+            pdItemIdx = viewitemIdx.length
+            pdFillIdx.innerText = pdItemIdx
+
+            console.log(checkArr);
+
+        }else if(checkSeir.classList.contains('checked')){
+            checkSeir.classList.remove('checked');//체크 삭제
+
+            let chxLabel = checkSeir.nextElementSibling;
+            let chxName =  chxLabel.getAttribute('for');//삭제된 체크 정보값
+
+            //체크박스 
+            for(let x = 0; x < checkArr.length; x++){
+                if(checkArr[x] == chxName ){//현재 있는 배열 값 중 삭제될 정보값과 일치하는게 있다면
+                    checkArr.splice(x,1);//일치 된 것 , 1개 배열에서 석제한다
+                    x--;  //1개 갯수 삭제
+                } 
+            }
+            console.log(checkArr);
+
+            //리스트
+            for(let i = 0; i < pdItemFig.length; i++){
+                let itemLi = pdItemFig[i].parentElement.parentElement;
+                let itemSpan = pdItemFig[i].children; 
+                let itemTit = itemSpan[0].className;
+                let itemSub = itemSpan[1].textContent;
+
+                itemLi.classList.add(dNone);
+                itemLi.classList.remove('active');
+
+                checkArr.filter(function(n){
+                    if(n === itemTit ){
+                        itemLi.classList.remove(dNone);
+                        itemLi.classList.add('active');
+                        return n == itemTit ;
+                    }
+
+                }); 
+
+                if(checkArr.length == 0){
+                    console.log('빵');
+                    itemLi.classList.remove(dNone);
+                    itemLi.classList.add('active');
+                }
+
+            }
+
+            //상품 갯수 
+            let viewitemIdx = document.querySelectorAll('.pd_list .active')
+            pdItemIdx = viewitemIdx.length
+            pdFillIdx.innerText = pdItemIdx
+
+
+        }
+}
+function onFilterCheckD(check){
+    let chkDesign = check
+
+    pdFillIdx.innerText = pdItemIdx;
+
+    if(!chkDesign.classList.contains('checked')){
+        chkDesign.classList.add('checked');
+
+        let chxLabel = chkDesign.nextElementSibling;
+        let chxName =  chxLabel.getAttribute('for')
+
+        //체크박스
+        checkDArr.push(chxName);
+
+        //리스트
+        for(let i = 0; i < pdItemFig.length; i++){
+            let itemLi = pdItemFig[i].parentElement.parentElement;
+            let itemSpan = pdItemFig[i].children; 
+            let itemSub = itemSpan[1].className;
+
+            itemLi.classList.add(dNone);
+            itemLi.classList.remove('active');
+
+            checkDArr.filter(function(n){
+                if(n === itemSub){
+                    itemLi.classList.remove(dNone);
+                    itemLi.classList.add('active');
+                    return n == itemSub;
+                }
+            }); 
+        }
+
+        //상품 갯수 
+        let viewitemIdx = document.querySelectorAll('.pd_list .active')
+        pdItemIdx = viewitemIdx.length
+        pdFillIdx.innerText = pdItemIdx
+
+        console.log(checkDArr);
+        
+
+    }else if(chkDesign.classList.contains('checked')){
+        chkDesign.classList.remove('checked');
+
+        let chxLabel = chkDesign.nextElementSibling;
+        let chxName =  chxLabel.getAttribute('for');
+
+        
+        //체크박스 
+        for(let x = 0; x < checkDArr.length; x++){
+            if(checkDArr[x] == chxName ){
+                checkDArr.splice(x,1);
+                x--;   
+            } 
+        }
+        console.log(checkDArr);
+
+        //리스트
+        for(let i = 0; i < pdItemFig.length; i++){
+            let itemLi = pdItemFig[i].parentElement.parentElement;
+            let itemSpan = pdItemFig[i].children; 
+            let itemSub = itemSpan[1].className;
+
+            itemLi.classList.add(dNone);
+            itemLi.classList.remove('active')
+
+            checkDArr.filter(function(n){
+                if(n === itemSub ){
+                    itemLi.classList.remove(dNone);
+                    itemLi.classList.add('active')
+                    return n == itemSub ;
+                }
+            });
+            
+            if(checkArr.length == 0){
+                itemLi.classList.remove(dNone);
+                itemLi.classList.add('active')
+            }
+        }
+        
+        //상품 갯수 
+        let viewitemIdx = document.querySelectorAll('.pd_list .active')
+        pdItemIdx = viewitemIdx.length
+        pdFillIdx.innerText = pdItemIdx
+
+    }
+
+}
+function onFilterClear(){
+
+    console.log('클리어')
+    //체크박스 - 체크된 클래스 삭제 - 시리즈
+    for(let c = 0; c < pdCheckLi.length; c++){
+        pdCheckLi[c].classList.remove('checked');
+        pdCheckLi[c].checked = false;    
+    }
+    //체크박스 - 체크된 클래스 삭제 - 디자이너
+    for(let c = 0; c < pdCheckLiD.length; c++){
+        pdCheckLiD[c].classList.remove('checked');
+        pdCheckLiD[c].checked = false;    
+    }
+    //체크 리스트 리셋 -시리즈
+    for(let a = 0; a < checkArr.length; a++){
+        checkArr.splice(a);
+    }
+     //체크 리스트 리셋 - 디자이너
+    for(let a = 0; a < checkDArr.length; a++){
+        checkDArr.splice(a);
+    }
+    //리스트
+    for(let i = 0; i < pdItemFig.length; i++){
+        let itemLi = pdItemFig[i].parentElement.parentElement;//모든 li
+        let itemSpan = pdItemFig[i].children; 
+        let itemTit = itemSpan[0].className;
+        let itemSub = itemSpan[1].className;;
+        //리스트 초기화
+        itemLi.classList.add(dNone);
+        itemLi.classList.remove('active');
+        if(checkArr.length == 0){
+            // console.log('빵');
+            itemLi.classList.remove(dNone);
+            itemLi.classList.add('active');
+        }
+    }
+    //상품 갯수 
+    let viewitemIdx = document.querySelectorAll('.pd_list .active')
+    pdItemIdx = viewitemIdx.length
+    pdFillIdx.innerText = pdItemIdx
+
+    console.log(checkArr);
+
+}
+
+
+
+function onProductClick(){
+    setTimeout(()=>{//pd body 사라지기
+        pdPage.style.opacity = 0;
+        pdPage.style.transition ='1s ease'
+        setTimeout(()=>{
+            pdPage.classList.add('disable');
+        },1000)
+    })
+    setTimeout(()=>{//footer 사라지기
+        pdFooter.style.opacity = 0;
+        pdFooter.style.transition ='1s ease'
+        setTimeout(()=>{
+            pdFooter.classList.add('disable');
+        },1000)
+    })
+
+    //디테일 페이지 열기
+    pdDtailPage.classList.remove('disable');
+    detailPage.classList.remove('disable');
+    setTimeout(()=>{
+        pdDtailPage.style.opacity = '1'
+        pdDtailPage.style.transition = '.5s ease';
+        detailPage.style.opacity = '1'
+        detailPage.style.transition = '.8s ease';
+
+        pdDtailR.style.right = '0%';
+        pdDtailR.style.transition ='1s ease'
+        window.scrollTo(0, 0);
+
+        if(matchMedia("screen and (max-width: 767px)").matches){
+            pdDtailR.style.top = '65%';
+            likePopup.style.opacity = 1;
+            likePopup.style.transition = '.5s .8s ease'
+        }
+    },1000)
+    
+
+}
+function onEditClick(editTxtBox){
+    let edit = editTxtBox;
+
+    let editSvg = edit.querySelector('span');
+    let editImgWrap = edit.nextElementSibling;
+    let editBox = edit.parentElement;
+    console.log(editBox)
+
+    if(!edit.classList.contains('active')){
+        edit.classList.add('active');
+
+        editSvg.style.transform = 'rotate(360deg)';
+        editSvg.style.transition = '.5s ease'
+        editImgWrap.classList.add('on');
+
+        if(editBox.classList.contains('edit_shell')){
+            console.log('shell option')
+            shellOptionClick();
+
+        }else if(editBox.classList.contains('edit_base')){
+            console.log('base option')
+            baseOptionClick();
+        }
+
+    }
+    else if(edit.classList.contains('active')){
+        edit.classList.remove('active');
+
+        editSvg.style.transform = 'rotate(180deg)';
+        editSvg.style.transition = '.5s ease'
+        editImgWrap.classList.remove('on');
+    }
+
+}
 function shellOptionClick(){
 
     for(let s = 0; s<shellBox.length; s++){
@@ -607,7 +569,6 @@ function shellOptionClick(){
     console.log('shell : '+ shellIdx);
 
 }
-//base check
 function baseOptionClick(){
 
     for(let s = 0; s< baseBox.length; s++){
@@ -638,9 +599,10 @@ function baseOptionClick(){
     console.log('base : '+ baseIdx);
 
 }
-//like btn click
-likeBtn.addEventListener('click',()=>{
-    saveName.value = '';//
+
+
+function onLikeBtn(){
+    saveName.value = '';
     savePopup.style.display = 'block'
     setTimeout(()=>{
         savePopup.style.opacity = '1';
@@ -649,29 +611,8 @@ likeBtn.addEventListener('click',()=>{
         if(matchMedia("screen and (max-width: 767px)").matches){
             savePopup.style.bottom = '0'
         }
-        
     },100)
-})
-//cancle click
-cancleBtn. addEventListener('click',()=>{ 
-    savePopNone();
-})
-//save btn click
-saveBtn.addEventListener('click',()=>{ 
-    console.log('세이브 버튼 누름');
-
-    //위시 갯수
-    wishIdx++;
-    wishIdxSpan.style.display = 'block'
-    wishIdxSpan.innerText = wishIdx;
-    if( saveName.value === ''){
-        saveNameNot()
-       }
-
-   savePopNone();//세이브 팝업 없애기
-   wishListAdd();//위시리스트 아이템 추가
-})
-//popup remove
+}
 function savePopNone(){
     savePopup.style.opacity = '0';
     savePopup.style.bottom = '0'
@@ -680,15 +621,24 @@ function savePopNone(){
         savePopup.style.display = 'none'
     },500)
 }
-//not name
+function onSaveBtn(){
+    console.log('세이브 버튼 누름');
+    //위시 갯수
+    wishIdx++;
+    wishIdxSpan.style.display = 'block'
+    wishIdxSpan.innerText = wishIdx;
+    if( saveName.value === ''){
+        saveNameNot()
+    }
+   savePopNone();//세이브 팝업 없애기
+   wishListAdd();//위시리스트 아이템 추가
+}
 function saveNameNot(){
     console.log('이름 없음');
     let pdName = document.querySelector('.detail_right .title')
     saveName.value = pdName.textContent;
     console.log();
 }
-
-// wish item add
 function wishListAdd (){
     wishPgtxt.style.display = 'none'
     console.log('리스트 추가 됨');
@@ -735,7 +685,6 @@ function wishListAdd (){
     `;
     listDelate(); 
 }
-//wish item remove
 function  listDelate(){
     delateBtn = document.querySelectorAll('.delate_box');
 
@@ -760,11 +709,9 @@ function  listDelate(){
     }
 
 }
-
-// wishlist click
-wishBtn.addEventListener('click',()=>{
+function onWishPgOpen(){
     console.log('위시 리스트 페이지 오픈');
-
+    
     setTimeout(()=>{
         detailPage.style.opacity = 0;
         detailPage.style.transition = '.5s ease'
@@ -784,8 +731,8 @@ wishBtn.addEventListener('click',()=>{
             wishBgAni()
         },500)
     })
-})
-//wish bg
+
+}
 function wishBgAni(){
     for(let i = 0; i <wishBgImg.length ; i++){
         setTimeout(()=>{//배경 ani
@@ -824,10 +771,7 @@ function wishBgAni(){
         },500)
     }
 }
-
-//x btn click
-backBtn.addEventListener('click',()=>{
-
+function onXbtn(){
     if(!wishPage.classList.contains('disable')){
 
         setTimeout(()=>{//위시페이지 숨기기
@@ -891,9 +835,38 @@ backBtn.addEventListener('click',()=>{
 
     }
 
-})
+}
 
 
+
+function addEvent() {
+    productIntroBg();
+    onFilter()
+    pdRangeInput.addEventListener('change',onGridGallery)
+    pdClearBtn.addEventListener('click',onFilterClear)
+    for(let c = 0; c < pdCheckLi.length; c++){
+        pdCheckLi[c].addEventListener('click',function(){onFilterCheck(pdCheckLi[c])})
+    }
+    for(let d = 0; d < pdCheckLiD.length; d++){
+        pdCheckLiD[d].addEventListener('click',function(){onFilterCheckD(pdCheckLiD[d])})
+    }
+    for(let i = 0;i < pdItem.length; i++){
+        pdItem[i].addEventListener('click',function(){onProductClick()})
+    }
+    for(let i = 0; i < editTxtBox.length; i++){
+        editTxtBox[i].addEventListener('click',function(){onEditClick(editTxtBox[i])})
+    }
+    likeBtn.addEventListener('click',onLikeBtn)
+    cancleBtn. addEventListener('click',savePopNone)
+    saveBtn.addEventListener('click',onSaveBtn)
+    wishBtn.addEventListener('click',onWishPgOpen)
+    backBtn.addEventListener('click',onXbtn)
+}
+function init() {
+    reset();
+    addEvent();
+}
+init();
 
 
 

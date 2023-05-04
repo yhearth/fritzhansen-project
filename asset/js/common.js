@@ -1,10 +1,5 @@
 
 'use strict';//
-
-//헤더 
-
-
-
 const main= document.querySelector('main');
 const header = document.querySelector('header');
 const headerLogo = document.querySelectorAll('.header_area .logo');
@@ -15,24 +10,31 @@ const headMenuArea = document.querySelector('header .menu_area');
 const headProduct = document.querySelector('.menu_area .product_menu');
 const headPdimg = document.querySelectorAll('.menu_area .product_menu .img_group .img_wrap');
 const headPdBtn = document.querySelectorAll('.menu_area .product_menu .nav_group .item');
-
 const headLiving = document.querySelector('.menu_area .living_menu');
 const headLivimg = document.querySelectorAll('.menu_area .living_menu .img_wrap img');
 const headLivBtn = document.querySelectorAll('.menu_area .living_menu .nav_list li');
-
-const hdBtnIndex = headPdBtn.length;//6
-const hdLivIndex = headLivBtn.length;//6
-
+const hdBtnIndex = headPdBtn.length;
+const hdLivIndex = headLivBtn.length;
 const linkBtn = document.querySelectorAll('.header_area .menu_item a');
 const linkMain = document.querySelector('.header_area .logoAni_wrap');
-
 let indexPg = 'index.html';
 let productPg = 'product.html';
 let livingPg = 'living.html';
 let designPg = 'designer.html';
 let aboutPg = 'about.html';
+//img zoom ani
+const zoomAni = document.querySelectorAll('.zoomAni');
+//slogan
+const sloganWrap = document.querySelector('.sloganImg');
+const slogan = document.querySelectorAll('.sloganImg  img');
+let sloganAll = slogan.length;
+let nowIndex = 0;
+let myArray = [];
+//footer
+const footerNav = document.querySelectorAll('.footer_area .nav_wrap');
+const footerNavTit = document.querySelectorAll('.footer_area .nav_wrap .tit');
+let idAni = false;
 
-headReset()
 function headReset(){
     main.classList.remove('on');
 
@@ -53,39 +55,25 @@ function headReset(){
     }
 
 }
+function onheadBgAni(){
+    let scrollNow = document.documentElement.scrollTop;
+    let winHeight = window.innerHeight;
+    let trigerBottom = header.offsetTop;
+    let trigerTop = trigerBottom - winHeight;
+    let bgProPer = 0;
 
-//logo click
-linkMain.addEventListener('click',function(e){
-    e.preventDefault();
-    window.location.href = indexPg;
-})
-//scroll - header/logo ani
-headerBgc();
-function headerBgc(){
-
-    window.addEventListener('scroll',()=> { 
-
-        let scrollNow = document.documentElement.scrollTop;//스크롤 바 bottom
-        let winHeight = window.innerHeight;//현재 화면 높이값
-        let trigerBottom = header.offsetTop;//요소의 bottom
-        let trigerTop = trigerBottom - winHeight; //요소의 top 
-        let bgProPer = 0;
-
-        bgProPer = (scrollNow - trigerTop) / winHeight * 10;
-         // console.log(bgProPer);
-        if( 10 < bgProPer){
-            header.classList.add('on');
-            for(let l = 0 ; l<headerLogo.length;l++){
-                headerLogo[l].classList.add('ani')
-            }
-        }else if(10 == bgProPer){
-            header.classList.remove('on');
-            for(let l = 0 ; l<headerLogo.length;l++){
-                headerLogo[l].classList.remove('ani')
-            }
+    bgProPer = (scrollNow - trigerTop) / winHeight * 10;
+    if( 10 < bgProPer){
+        header.classList.add('on');
+        for(let l = 0 ; l<headerLogo.length;l++){
+            headerLogo[l].classList.add('ani')
         }
-    })
-
+    }else if(10 == bgProPer){
+        header.classList.remove('on');
+        for(let l = 0 ; l<headerLogo.length;l++){
+            headerLogo[l].classList.remove('ani')
+        }
+    }
 }
 //header btn mouseover
 for(let m = 0 ; m <headerMenuBtn.length; m++){
@@ -110,71 +98,63 @@ for(let m = 0 ; m <headerMenuBtn.length; m++){
 
     })
 }
-//header btn click
-for(let p = 0; p <linkBtn.length; p++){
-    linkBtn[p].addEventListener('click',function(e){
-        e.preventDefault();
-        console.log('페이지 이동 클릭');
-        
-        if(linkBtn[p].classList.contains('link_product')){
-            setTimeout(()=>{
-                main.classList.add('on');
-                headMenuArea.style.height = '25vw';
-                headMenuArea.style.transition = '.5s ease'
-                if(matchMedia("screen and (max-width: 1023px)").matches){ 
-                    headMenuArea.style.height = '27.5vw';
-                }
-             })
-             setTimeout(()=>{
-                headProduct.style.display = 'flex';
-                headLiving.style.display = 'none';
-                setTimeout(()=>{
-                    headProduct.style.opacity = 1;
-                    headProduct.style.transition = '.5s ease'
-                },500)
-             })
-             headPdSelect();
-
-             if(matchMedia("screen and (max-width: 767px)").matches){ 
-                window.location.href = productPg;
+function onLinkClick(p){
+    let link = p;
+    if(link.classList.contains('link_product')){
+        setTimeout(()=>{
+            main.classList.add('on');
+            headMenuArea.style.height = '25vw';
+            headMenuArea.style.transition = '.5s ease'
+            if(matchMedia("screen and (max-width: 1023px)").matches){ 
+                headMenuArea.style.height = '27.5vw';
             }
-        }else if(linkBtn[p].classList.contains('link_living')){
+         })
+         setTimeout(()=>{
+            headProduct.style.display = 'flex';
+            headLiving.style.display = 'none';
             setTimeout(()=>{
-                main.classList.add('on');
-                headMenuArea.style.height = '25vw';
-                headMenuArea.style.transition = '.5s ease'
-                if(matchMedia("screen and (max-width: 1023px)").matches){ 
-                    headMenuArea.style.height = '27.5vw';
-                }
-             })
-             setTimeout(()=>{
-                headLiving.style.display = 'flex';
-                headProduct.style.display = 'none';
-                setTimeout(()=>{
-                    headLiving.style.opacity = 1
-                    headLiving.style.transition = '.5s ease'
-                },500)
-             })
+                headProduct.style.opacity = 1;
+                headProduct.style.transition = '.5s ease'
+            },500)
+         })
+         headPdSelect();
 
-             headLivSelect();
-             if(matchMedia("screen and (max-width: 767px)").matches){ 
-                window.location.href = livingPg;
+         if(matchMedia("screen and (max-width: 767px)").matches){ 
+            window.location.href = productPg;
+        }
+    }else if(link.classList.contains('link_living')){
+        setTimeout(()=>{
+            main.classList.add('on');
+            headMenuArea.style.height = '25vw';
+            headMenuArea.style.transition = '.5s ease'
+            if(matchMedia("screen and (max-width: 1023px)").matches){ 
+                headMenuArea.style.height = '27.5vw';
             }
-        }
-        else if(linkBtn[p].classList.contains('link_designer')){ 
-            window.location.href = designPg;
-        }
-        else if(linkBtn[p].classList.contains('link_about')){
-            window.location.href = aboutPg;
-        }
+         })
+         setTimeout(()=>{
+            headLiving.style.display = 'flex';
+            headProduct.style.display = 'none';
+            setTimeout(()=>{
+                headLiving.style.opacity = 1
+                headLiving.style.transition = '.5s ease'
+            },500)
+         })
 
+         headLivSelect();
+         if(matchMedia("screen and (max-width: 767px)").matches){ 
+            window.location.href = livingPg;
+        }
+    }
+    else if(link.classList.contains('link_designer')){ 
+        window.location.href = designPg;
+    }
+    else if(link.classList.contains('link_about')){
+        window.location.href = aboutPg;
+    }
 
-    })
 
 }
-//product btn 
 function headPdSelect(){
-
    for(let i=0;i <hdBtnIndex; i++){
         
         // 초기화
@@ -219,9 +199,7 @@ function headPdSelect(){
         
 
    }
-
 }
-//living btn 
 function headLivSelect(){
 
     for(let i = 0; i< hdLivIndex; i++){
@@ -260,77 +238,8 @@ function headLivSelect(){
     }
 
 }
-//header mouseout
-header.addEventListener('mouseleave',()=>{//mouse < mouseleave
-    headReset()
-    //초기화 
-})
-
-//모바일
-if(matchMedia("screen and (max-width: 767px)").matches){ 
-    let headerOn = false;
-
-    headMenuMob.addEventListener('click',()=>{
-        if(headerOn == false){
-            headerOn = true;
-            headMenuMob.classList.add('on');
-            headMenuList.style.display = 'block';
-            setTimeout(()=>{
-                headMenuList.style.opacity = 1;
-                headMenuList.style.height='50vh';
-                headMenuList.style.transition = '.5s ease';
-                main.classList.add('on');
-            },100)
-        }else if(headerOn == true){
-            headerOn = false;
-            setTimeout(()=>{
-                main.classList.remove('on');
-                headMenuList.style.opacity = 0;
-                headMenuList.style.height='0';
-                headMenuList.style.transition = '.5s ease';
-                setTimeout(()=>{
-                    headMenuList.style.display = 'none';
-                },500)
-            })
-            headMenuMob.classList.remove('on');
-        }
-    })
-    main.addEventListener('click',()=>{
-        headerOn = false
-        setTimeout(()=>{
-            main.classList.remove('on');
-            headMenuList.style.opacity = 0;
-            headMenuList.style.height='0';
-            headMenuList.style.transition = '.5s ease';
-            setTimeout(()=>{
-                headMenuList.style.display = 'none';
-            },500)
-        })
-        headMenuMob.classList.remove('on');
-        
-    })
-
-    
-}
 
 
-
-
-
-
-
-
-
-
-
-
-
-//////////
-const sloganWrap = document.querySelector('.sloganImg');
-const slogan = document.querySelectorAll('.sloganImg  img');
-let sloganAll = slogan.length;
-let nowIndex = 0;
-let myArray = [];
 function sloganslide(){
     
     for(let i = 0; i < sloganAll; i++){
@@ -382,32 +291,20 @@ function sloganslide(){
 
 
 }
-
-//img zoom ani
-const zoomAni = document.querySelectorAll('.zoomAni');
-
-for( let z = 0; z <zoomAni.length; z++){
-    let zoomItem = zoomAni[z].querySelector('img');
-
-    zoomAni[z].addEventListener('mouseover',() => {
-         zoomItem.style.transform = `scale(1.08)`;//scale ``사용
-         zoomItem.style.transition ='.3s ease-out';
-    })
-    zoomAni[z].addEventListener('mouseout',() => {
-        zoomItem.style.transform = `scale(1)`;
-        zoomItem.style.transition ='.5s ease-out';
-    })
+function imgZoomAni(){
+    for( let z = 0; z <zoomAni.length; z++){
+        let zoomItem = zoomAni[z].querySelector('img');
+    
+        zoomAni[z].addEventListener('mouseover',() => {
+             zoomItem.style.transform = `scale(1.08)`;//scale ``사용
+             zoomItem.style.transition ='.3s ease-out';
+        })
+        zoomAni[z].addEventListener('mouseout',() => {
+            zoomItem.style.transform = `scale(1)`;
+            zoomItem.style.transition ='.5s ease-out';
+        })
+    }
 }
-
-
-
-
-//footer
-const footerNav = document.querySelectorAll('.footer_area .nav_wrap');
-const footerNavTit = document.querySelectorAll('.footer_area .nav_wrap .tit');
-
-let idAni = false;
-footer()
 function footer(){
     for(let f = 0 ;f < footerNavTit.length; f++){
 
@@ -441,5 +338,110 @@ function footer(){
     }
 
 }
+
+if(matchMedia("screen and (max-width: 767px)").matches){ 
+    let headerOn = false;
+    headMenuMob.addEventListener('click',()=>{
+        if(headerOn == false){
+            headerOn = true;
+            headMenuMob.classList.add('on');
+            headMenuList.style.display = 'block';
+            setTimeout(()=>{
+                headMenuList.style.opacity = 1;
+                headMenuList.style.height='50vh';
+                headMenuList.style.transition = '.5s ease';
+                main.classList.add('on');
+            },100)
+        }else if(headerOn == true){
+            headerOn = false;
+            setTimeout(()=>{
+                main.classList.remove('on');
+                headMenuList.style.opacity = 0;
+                headMenuList.style.height='0';
+                headMenuList.style.transition = '.5s ease';
+                setTimeout(()=>{
+                    headMenuList.style.display = 'none';
+                },500)
+            })
+            headMenuMob.classList.remove('on');
+        }
+    })
+    main.addEventListener('click',()=>{
+        headerOn = false
+        setTimeout(()=>{
+            main.classList.remove('on');
+            headMenuList.style.opacity = 0;
+            headMenuList.style.height='0';
+            headMenuList.style.transition = '.5s ease';
+            setTimeout(()=>{
+                headMenuList.style.display = 'none';
+            },500)
+        })
+        headMenuMob.classList.remove('on');
+        
+    })
+}
+function onhandleResize() {
+    if (window.innerWidth < 768) {
+        let headerOn = false;
+        headMenuMob.addEventListener('click',()=>{
+            if(headerOn == false){
+                headerOn = true;
+                headMenuMob.classList.add('on');
+                headMenuList.style.display = 'block';
+                setTimeout(()=>{
+                    headMenuList.style.opacity = 1;
+                    headMenuList.style.height='50vh';
+                    headMenuList.style.transition = '.5s ease';
+                    main.classList.add('on');
+                },100)
+            }else if(headerOn == true){
+                headerOn = false;
+                setTimeout(()=>{
+                    main.classList.remove('on');
+                    headMenuList.style.opacity = 0;
+                    headMenuList.style.height='0';
+                    headMenuList.style.transition = '.5s ease';
+                    setTimeout(()=>{
+                        headMenuList.style.display = 'none';
+                    },500)
+                })
+                headMenuMob.classList.remove('on');
+            }
+        })
+        main.addEventListener('click',()=>{
+            headerOn = false
+            setTimeout(()=>{
+                main.classList.remove('on');
+                headMenuList.style.opacity = 0;
+                headMenuList.style.height='0';
+                headMenuList.style.transition = '.5s ease';
+                setTimeout(()=>{
+                    headMenuList.style.display = 'none';
+                },500)
+            })
+            headMenuMob.classList.remove('on');
+            
+        })
+    }
+}
+
+function  commonAddEvent(){
+    headReset()
+    linkMain.addEventListener('click',function(e){e.preventDefault();window.location.href = indexPg;})
+    window.addEventListener('scroll',onheadBgAni)
+    for(let p = 0; p <linkBtn.length; p++){
+        linkBtn[p].addEventListener('click',function(e){ e.preventDefault();onLinkClick( linkBtn[p])})
+    }
+    header.addEventListener('mouseleave', headReset)
+    imgZoomAni()
+    footer()
+}
+
+function commonInit() {
+    commonAddEvent();
+    window.addEventListener('resize', onhandleResize);
+}
+commonInit();
 
 

@@ -54,12 +54,10 @@ function handleResize() {
         slideWidth = 60
         slideMargin = 4
         wrapWidthSize()
-        console.log('m')
     }else if(window.innerWidth < 1024){
         slideWidth = 26.5
         slideMargin = 3
         wrapWidthSize()
-        console.log('t')
     }
 }
 function  mainVisualSlide(){
@@ -75,16 +73,17 @@ function  mainVisualSlide(){
     setTimeout(()=>{//main
         visualSc.style.opacity = 1;
         visualSc.style.transition = '1s ease';
-    },500)
+    },200)
     setTimeout(()=>{//control
         visControl.style.opacity =1;
         visControl.style.transition = '.5s ease'
-    },1500)
+    },1000)
      setTimeout(()=>{//visual img
         visualWrap.style.height = '70%';
         visualWrap.style.transition='1s ease';
+        visualTit.style.top = '0';
+        visualTit.style.transition = '1s ease';
      },1000)
-    visualTit.classList.add('on')//txt
 
     //img slide ani
     setTimeout(()=>{
@@ -185,7 +184,7 @@ function  mainVisualSlide(){
                  timeron();
              }
          })
-    },500)
+    })
 }
 function onMainScrollAni(){
     for(let i = 0; i <trigerMain.length; i++){
@@ -276,7 +275,7 @@ function addEvent() {
     onMvBtnclick();
     wrapWidthSize()
     onMainCateClick();
-    sloganslide();
+    window.onload = function(){sloganslide();}
 }
 function init() {
     reset()

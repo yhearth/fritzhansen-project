@@ -61,7 +61,6 @@ main{
                         display: flex;
                         flex-direction: column;
                         @include main_font;
-                        &.on{top:0;transition: 1s 1s ease;}
                         @include mobile{
                             left: 50%;transform: translateX(-50%);
                             font-size: 30px;

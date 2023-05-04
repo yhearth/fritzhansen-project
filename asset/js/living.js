@@ -1,11 +1,9 @@
-window.onload = function(){ 
-    reset()
-    livingIntro()
-    sloganslide(); 
-};
+'use strict';
 const ivIntro = document.querySelector('.living_area .sc_intro');
 const ivIntroImg = document.querySelector('.living_area .sc_intro .img_wrap img');
 const ivIntroTit = document.querySelector('.living_area .sc_intro .title');
+const trigerLiving = document.querySelectorAll('.living_area .lv_list');
+const livingItem = document.querySelectorAll('.living_area .lv_list li');
 
 function reset(){
     ivIntroImg.style.transform = `scale(1.5)`;
@@ -22,7 +20,6 @@ function reset(){
         }
     }
 }
-//intro
 function livingIntro(){
     setTimeout(()=>{
         ivIntro.style.opacity =1;
@@ -37,14 +34,7 @@ function livingIntro(){
 
 
 }
-
-
-//scroll
-const trigerLiving = document.querySelectorAll('.living_area .lv_list');
-const livingItem = document.querySelectorAll('.living_area .lv_list li');
-
-window.addEventListener('scroll',()=> { 
-    
+function onScrollEvent(){
     for(let i = 0; i <trigerLiving.length; i++){
        
         let scrollNow = document.documentElement.scrollTop;
@@ -70,5 +60,16 @@ window.addEventListener('scroll',()=> {
                 }
             }
     }
-})
 
+}
+
+function addEvent(){
+    livingIntro()
+    window.addEventListener('scroll',onScrollEvent)
+    window.onload = function(){sloganslide();}
+}
+function init() {
+    reset();
+    addEvent();
+}
+init();
