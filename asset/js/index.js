@@ -49,6 +49,19 @@ function reset(){
         }
       }
 }
+function handleResize() {
+    if (window.innerWidth < 768) {
+        slideWidth = 60
+        slideMargin = 4
+        wrapWidthSize()
+        console.log('m')
+    }else if(window.innerWidth < 1024){
+        slideWidth = 26.5
+        slideMargin = 3
+        wrapWidthSize()
+        console.log('t')
+    }
+}
 function  mainVisualSlide(){
     //reset
     for(let i = 0; i < visualImg.length; i++){
@@ -258,33 +271,20 @@ function moveSlide(num){
 
 
 function addEvent() {
+    mainVisualSlide();
     window.addEventListener("scroll",onMainScrollAni);
     onMvBtnclick();
     wrapWidthSize()
     onMainCateClick();
+    sloganslide();
 }
 function init() {
     reset()
-    window.onload = function(){mainVisualSlide();sloganslide();}
+    window.addEventListener('resize', handleResize);
     addEvent();
 }
 init();
 
-function handleResize() {
-    if (window.innerWidth < 768) {
-        slideWidth = 60
-        slideMargin = 4
-        wrapWidthSize()
-        console.log('m')
-    }else if(window.innerWidth < 1024){
-        slideWidth = 26.5
-        slideMargin = 3
-        wrapWidthSize()
-        console.log('t')
-    }
-  }
-  
-  window.addEventListener('resize', handleResize);
 
 
 
