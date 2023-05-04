@@ -382,12 +382,6 @@ function sloganslide(){
 
 
 }
-window.onresize = function(){
-    if(matchMedia("screen and (max-width: 768px)").matches){
-        document.location.reload();
-        window.scrollTo(0, 0);
-    }
-};
 
 //img zoom ani
 const zoomAni = document.querySelectorAll('.zoomAni');
