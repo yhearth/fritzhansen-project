@@ -7,12 +7,13 @@ window.onload = function(){
 const aboutIntroImg = document.querySelector('.about_area .sc_intro .intro_group .img_wrap');
 const aboutIntroTxt = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap');
 const aboutIntroTit = document.querySelector('.about_area .sc_intro .intro_group .txt_wrap .title span');
-window.onresize = function(){
-    if(matchMedia("screen and (min-width: 768px)").matches){
-        document.location.reload();
-        window.scrollTo(0, 0);
-    };
-}
+if(matchMedia("screen and (max-width: 1024px)").matches){
+    document.location.reload();
+    window.scrollTo(0, 0);
+}else if(matchMedia("screen and (max-width: 767px)").matches){
+    document.location.reload();
+    window.scrollTo(0, 0);
+};
 function reset(){
     aboutIntroImg.style.opacity = 0;
     aboutIntroImg.style.width = '0';

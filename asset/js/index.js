@@ -4,12 +4,13 @@ window.onload = function(){
     mainVisualSlide();
     sloganslide(); 
 };
-window.onresize = function(){
-    if(matchMedia("screen and (min-width: 768px)").matches){
-        document.location.reload();
-        window.scrollTo(0, 0);
-    };
-}
+if(matchMedia("screen and (max-width: 1024px)").matches){
+    document.location.reload();
+    window.scrollTo(0, 0);
+}else if(matchMedia("screen and (max-width: 767px)").matches){
+    document.location.reload();
+    window.scrollTo(0, 0);
+};
 //main
 const visualSc = document.querySelector('.main_area .sc_visual')
 const visualTxt= document.querySelector('.main_area .visual_title')

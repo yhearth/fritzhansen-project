@@ -5,12 +5,14 @@ window.onload = function(){
     productIntroBg();
     // footer()
 }
-window.onresize = function(){
-    if(matchMedia("screen and (min-width: 768px)").matches){
-        document.location.reload();
-        window.scrollTo(0, 0);
-    };
-}
+
+if(matchMedia("screen and (max-width: 1024px)").matches){
+    document.location.reload();
+    window.scrollTo(0, 0);
+}else if(matchMedia("screen and (max-width: 767px)").matches){
+    document.location.reload();
+    window.scrollTo(0, 0);
+};
 function reset(){
     pdIntroImg.style.transform = `scale(1.3)`;
     pdIntroTxt.style.opacity = 0;
