@@ -34,11 +34,11 @@ let slideMargin = 1
 if(matchMedia("screen and (max-width: 767px)").matches){
     slideWidth = 60
     slideMargin = 4
-}else if(matchMedia("screen and (max-width: 1023px)").matches){
+}
+else if(matchMedia("screen and (max-width: 1023px)").matches){
     slideWidth = 26.5
     slideMargin = 3
 }
-
 function reset(){
     visualSc.style.opacity = 0;
     visControl.style.opacity =0;
@@ -255,23 +255,6 @@ function moveSlide(num){
     currIndex = num;
     console.log(currIndex , slideIndex); 
 }
-let delay = 300;
-let timer = null;
-
-// Javascript
-window.addEventListener('resize', function(){
-	clearTimeout(timer);
-	timer = setTimeout(function(){
-		console.log('resize event!');  
-        if (window.innerWidth <= 767) {
-            document.location.reload();
-            console.log('모바일 로드')
-   		}else if(window.innerWidth <= 1024){
-            document.location.reload();
-            console.log('테블릿 로드')
-        }
-	});
-});
 
 
 function addEvent() {
@@ -279,7 +262,6 @@ function addEvent() {
     onMvBtnclick();
     wrapWidthSize()
     onMainCateClick();
-
 }
 function init() {
     reset()
@@ -287,6 +269,22 @@ function init() {
     addEvent();
 }
 init();
+
+function handleResize() {
+    if (window.innerWidth < 768) {
+        slideWidth = 60
+        slideMargin = 4
+        wrapWidthSize()
+        console.log('m')
+    }else if(window.innerWidth < 1024){
+        slideWidth = 26.5
+        slideMargin = 3
+        wrapWidthSize()
+        console.log('t')
+    }
+  }
+  
+  window.addEventListener('resize', handleResize);
 
 
 
