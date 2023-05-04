@@ -4,13 +4,7 @@ window.onload = function(){
 };
 const designIntroImg = document.querySelector('.designers_area .sc_intro .img_wrap img');
 const designIntroTxt = document.querySelector('.designers_area .sc_intro .title');
-if(matchMedia("screen and (max-width: 1024px)").matches){
-    document.location.reload();
-    window.scrollTo(0, 0);
-}else if(matchMedia("screen and (max-width: 767px)").matches){
-    document.location.reload();
-    window.scrollTo(0, 0);
-};
+
 function reset(){
     designIntroImg.style.opacity = 0;
     designIntroImg.style.transform = `scale(1.2)`;

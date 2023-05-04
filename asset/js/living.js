@@ -7,13 +7,6 @@ const ivIntro = document.querySelector('.living_area .sc_intro');
 const ivIntroImg = document.querySelector('.living_area .sc_intro .img_wrap img');
 const ivIntroTit = document.querySelector('.living_area .sc_intro .title');
 
-if(matchMedia("screen and (max-width: 1024px)").matches){
-    document.location.reload();
-    window.scrollTo(0, 0);
-}else if(matchMedia("screen and (max-width: 767px)").matches){
-    document.location.reload();
-    window.scrollTo(0, 0);
-};
 function reset(){
     ivIntroImg.style.transform = `scale(1.5)`;
     ivIntroTit.style.transform = 'translateY(100%)';
