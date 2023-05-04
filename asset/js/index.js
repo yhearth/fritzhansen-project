@@ -255,6 +255,23 @@ function moveSlide(num){
     currIndex = num;
     console.log(currIndex , slideIndex); 
 }
+let delay = 300;
+let timer = null;
+
+// Javascript
+window.addEventListener('resize', function(){
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		console.log('resize event!');  
+        if (window.innerWidth <= 767) {
+            document.location.reload();
+            console.log('모바일 로드')
+   		}else if(window.innerWidth <= 1024){
+            document.location.reload();
+            console.log('테블릿 로드')
+        }
+	});
+});
 
 
 function addEvent() {
@@ -262,12 +279,12 @@ function addEvent() {
     onMvBtnclick();
     wrapWidthSize()
     onMainCateClick();
+
 }
 function init() {
     reset()
     window.onload = function(){mainVisualSlide();sloganslide();}
     addEvent();
-    window.onresize = function(){document.location.reload();};
 }
 init();
 
